@@ -4,20 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "29d77f03a0cb6fb0",
+        "id": "377234430e1da27f",
         "type": "tabs",
         "children": [
           {
-            "id": "c284dce9b5c3acc4",
+            "id": "9eccc01278fd1ee1",
             "type": "leaf",
             "state": {
-              "type": "bases",
+              "type": "markdown",
               "state": {
-                "file": "Sin título.base",
-                "viewName": "Tabla"
+                "file": "ADA/Mapeo objeto-relacional/Mapeo objeto-relacional. Hibernate con anotaciones.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-table",
-              "title": "Sin título"
+              "icon": "lucide-file",
+              "title": "Mapeo objeto-relacional. Hibernate con anotaciones"
             }
           }
         ]
@@ -93,7 +94,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Sin título.base",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +103,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Enlaces entrantes de Sin título"
+              "title": "Enlaces entrantes"
             }
           },
           {
@@ -112,12 +112,11 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Sin título.base",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Enlaces salientes de Sin título"
+              "title": "Enlaces salientes"
             }
           },
           {
@@ -155,13 +154,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Sin título.base",
+                "file": "ADA/Tema 1 - Ficheros.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Esquema de Sin título"
+              "title": "Esquema de Tema 1 - Ficheros"
             }
           }
         ],
@@ -169,7 +168,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -183,8 +183,21 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "8648339596aea1a1",
+  "active": "0e78cb562d0f4a28",
   "lastOpenFiles": [
+    "ADA/Tema 1",
+    "Sin nombre",
+    "ADA/Spring/Proyecto Práctico Spring Boot - Z-Tracker API. Red Global de Supervivencia.md",
+    "ADA/Spring/Pasted image 20260211110011.png",
+    "ADA/Spring/Pasted image 20260205190214.png",
+    "ADA/Spring/Pasted image 20260205115107.png",
+    "ADA/Spring/Pasted image 20260130121820.png",
+    "ADA/Spring/Tema 6. Componentes - Spring..md",
+    "ADA/Spring/ANEXO. CONSULTAS EN JPA.md",
+    "ADA/Tema 1/Tema 1 - Gestión de Ficheros y Directorios en Java.md",
+    "ADA/EXAMEN 2DA EVALUACIÓN ACCESO A DATOS (Modelo A).md",
+    "2026-05-05.md",
+    "Sin título.canvas",
     "Sin título.base"
   ]
 }
