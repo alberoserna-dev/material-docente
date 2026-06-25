@@ -1,4 +1,4 @@
-
+--- title: "Mapeo objeto-relacional. Hibernate con anotaciones" ---
 ## 1.  Anotaciones en Hibernate.
 
 El formato XML tiene muchos detractores, que lo consideran “demasiado farragoso” y poco legible en documentos de un cierto tamaño. En ciertos entornos se prefieren notaciones más compactas, como JSON. En Java, en ciertos casos se pueden emplear “anotaciones”, etiquetas especiales precedidas por el símbolo de la arroba (@). Hibernate permite también usar anotaciones en vez de ficheros XML, de hecho es lo más común cuando se trabaja con Hibernate-Spring.
