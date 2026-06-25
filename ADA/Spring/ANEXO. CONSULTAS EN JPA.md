@@ -1,3 +1,4 @@
+--- title: "ANEXO: Consultas en JPA" ---
 ### 1. Búsquedas de Texto (Strings)
 
 Ideal para crear buscadores o filtrar por nombres.

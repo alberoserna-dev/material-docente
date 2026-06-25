@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "ADA/Spring/Tema 6. Componentes - Spring..md",
+                "file": "ADA/Spring/ANEXO. CONSULTAS EN JPA.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Tema 6. Componentes - Spring."
+              "title": "ANEXO. CONSULTAS EN JPA"
             }
           }
         ]
@@ -185,8 +185,12 @@
   },
   "active": "9eccc01278fd1ee1",
   "lastOpenFiles": [
-    "ADA/Spring/Proyecto Práctico Spring Boot - Z-Tracker API. Red Global de Supervivencia.md",
     "ADA/Spring/Tema 6. Componentes - Spring..md",
+    "ADA/Tema 1/Tema 1 - Gestión de Ficheros y Directorios en Java.md",
+    "PARE/OSPF (Open Shortest Path First).md",
+    "PARE/Enrutamiento Estático.md",
+    "PARE/Enrutamiento Dinámico.md",
+    "ADA/Spring/Proyecto Práctico Spring Boot - Z-Tracker API. Red Global de Supervivencia.md",
     "ADA/Mapeo objeto-relacional/Mapeo objeto-relacional. Hibernate con anotaciones.md",
     "ADA/Tema 1",
     "Sin nombre",
@@ -195,7 +199,6 @@
     "ADA/Spring/Pasted image 20260205115107.png",
     "ADA/Spring/Pasted image 20260130121820.png",
     "ADA/Spring/ANEXO. CONSULTAS EN JPA.md",
-    "ADA/Tema 1/Tema 1 - Gestión de Ficheros y Directorios en Java.md",
     "ADA/EXAMEN 2DA EVALUACIÓN ACCESO A DATOS (Modelo A).md",
     "2026-05-05.md",
     "Sin título.canvas",
