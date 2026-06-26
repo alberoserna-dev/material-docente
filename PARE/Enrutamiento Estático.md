@@ -1,5 +1,3 @@
---- title: "Enrutamiento Estático" ---
-
 En esta unidad vamos a tratar los siguientes puntos:
 
 - Cómo los hosts finales envían paquetes IP a destinos locales y remotos

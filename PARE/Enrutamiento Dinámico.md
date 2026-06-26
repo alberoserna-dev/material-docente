@@ -1,5 +1,3 @@
---- title: "Enrutamiento Dinámico" ---
-
 En esta unidad veremos los siguientes puntos:
 
 - Las ventajas del enrutamiento dinámico sobre el enrutamiento estático

@@ -1,17 +1,16 @@
---- title: "Gestión de Ficheros y Directorios en Java" ---
 ### Acceso al sistema de archivos desde Java
 #### Clase File en Java
 La clase File de Java forma parte del paquete java.io y se utiliza para representar rutas de archivos y directorios en el sistema de archivos. No proporciona métodos para leer o escribir directamente en los archivos, sino que sirve como un objeto abstracto que describe la ruta y permite realizar operaciones relacionadas con la gestión de archivos.
 Características principales
 
-##### Algunas de las características más importantes de la clase File son:
+**Algunas de las características más importantes de la clase File son:**
 - Representa rutas de archivos y directorios, tanto relativos como absolutos.
 - Permite crear, eliminar y renombrar archivos o directorios.
 - Proporciona métodos para comprobar permisos de lectura, escritura y ejecución.
 - Permite obtener información como tamaño, fecha de modificación y ruta absoluta.
 - Puede listar los archivos contenidos en un directorio.
 
-##### Ejemplo de uso
+**Ejemplo de uso**
 A continuación se muestra un ejemplo sencillo de uso de la clase File: 
 
 ```Java
@@ -38,16 +37,16 @@ public class EjemploFile {
 }
 ```
 
-> [!Ejercicio 1]
+> [!NOTE] Ejercicio 1
 Crea un programa Java que reciba como parámetro el nombre de un Directorio y muestre por consola la lista de archivos que contiene.
 
-> [!Ejercicio 2]
+> [!Note] Ejercicio 2
 > Amplia el programa anterior para que muestre recursivamente la lista de archivos y directorios que contiene el Directorio recibido por parámetro.
 
 #### Clases de Java para leer ficheros de texto
 En Java existen diferentes clases y enfoques para leer ficheros de texto. La elección depende de si se busca simplicidad, eficiencia o un control más avanzado sobre la codificación. A continuación, se explican las principales clases con ejemplos prácticos.
 
-##### FileReader
+**FileReader**
 La clase FileReader permite leer caracteres directamente desde un archivo. Es adecuada para leer texto básico, pero normalmente se combina con BufferedReader para mejorar el rendimiento. 
 
 Este método lee un solo carácter y te devuelve un **`int`** (el valor numérico de ese carácter en la tabla Unicode, por ejemplo, 65 para la 'A'). Es por esto que es necesario el casteo a `char` que se muestra en el ejemplo:
@@ -66,7 +65,8 @@ public class EjemploFileReader {
 	} 
 }
 ```
-##### BufferedReader
+
+**BufferedReader**
 BufferedReader permite leer texto de manera eficiente, especialmente línea por línea. Se suele utilizar junto con FileReader o InputStreamReader. Importante advertir que en este caso ya no es necesario el casteo.
 
 Este método internamente, lee esos carácteres numéricos que ofrecía FileReader, los junta en su array de memoria (Buffer), y cuando detecta un salto de línea (`\n`), empaqueta todos esos caracteres y fabrica el `String`. El casteo de `int` a `char` ya está hecho dentro del tratamiento realizado por la clase `BufferedReader`.
@@ -74,7 +74,7 @@ Este método internamente, lee esos carácteres numéricos que ofrecía FileRead
 ```Java
 public class EjemploBufferedReader {
 	public static void main(String[] args) { 
-		try (BufferedReader br = new BufferedReader(new                                         FileReader("archivo.txt"))) { 
+		try (BufferedReader br = new BufferedReader(new FileReader("archivo.txt"))) { 
 			String linea; 
 			while ((linea = br.readLine()) != null) { 
 				System.out.println(linea); 
@@ -86,7 +86,7 @@ public class EjemploBufferedReader {
 }
 ```
 
-##### InputStreamReader
+**InputStreamReader**
 InputStreamReader convierte un flujo de bytes en caracteres, permitiendo especificar una codificación como UTF-8. Se combina habitualmente con BufferedReader.
 
 Dado que InputStreamReader trabaja con flujo de Bytes, no es posible usarlo con la clase FileReader que usábamos hasta ahora, la cual leía caracteres a través de su codificación (`int`). Es por ello que, para usar InputStreamReader, accedemos al fichero a través de la clase FileInputStream, que nos ofrece el flujo de bytes correspondiente al contenido del fichero.
@@ -114,7 +114,7 @@ este apilamiento de triple `new` (`new BufferedReader(new InputStreamReader(new 
     
 3. **Línea final (El Empaquetador - `BufferedReader`):** Recoge las piezas del fundidor, las mete en su almacén temporal (buffer) y te entrega cajas completas y ordenadas (Líneas de texto / `String`).
 
-##### Files.readAllLines
+**Files.readAllLines**
 El método Files.readAllLines lee todas las líneas de un archivo y las devuelve en una lista de Strings. Es una forma sencilla de obtener todo el contenido de un archivo pequeño o mediano. Es importante tener en cuenta que, dado que lee todas las líneas del fichero, si el archivo es grande puede suponer problemas de memoria de la aplicación.
 
 ```Java
@@ -130,7 +130,7 @@ public class EjemploFilesReadAllLines {
 }
 ```
 
-##### Files.lines
+**Files.lines**
 Files.lines devuelve un Stream de las líneas de un archivo, lo que permite procesarlas con las funcionalidades de Streams de Java 8 o superior.
 
 ```Java
@@ -145,7 +145,7 @@ public class EjemploFilesLines {
 }
 ```
 
-##### Scanner
+**Scanner**
 La clase Scanner de java.util se puede utilizar para leer archivos de texto de manera sencilla, línea a línea o token por token. Permite definir la codificación del archivo.
 
 ```Java
@@ -162,23 +162,23 @@ public class EjemploScanner {
 }
 ```
 
->[!Ejercicio 3]
+>[!Note] Ejercicio 3
 >Crea un programa que lea si existe un fichero llamado ”log.txt” mostrando por consola una línea por cada línea del fichero.
 
->[!Ejercicio 4]
+>[!NOTE] Ejercicio 4
 >Crea un programa que cuente cuántas líneas tiene un archivo de texto.
 
->[!Ejercicio 5]
+>[!NOTE] Ejercicio 5
 >Crea un programa que pida al usuario el nombre de un fichero de texto y muestre en consola la cantidad (total) de vocales que contiene.
 
->[!Ejercicio 6]
+>[!NOTE] Ejercicio 6
 >Crea un programa Java que reciba como parámetro el nombre de un archivo de texto y muestre por pantalla todas las palabras que contenga que empiecen por A sin distinguir mayúsculas de minúsculas
 
 #### Clases Java para escribir ficheros de texto
 
 En Java, existen varias clases dentro del paquete java.io que permiten escribir ficheros de texto. Entre las más utilizadas se encuentran FileWriter, BufferedWriter y PrintWriter. A continuación, se explican sus usos con ejemplos prácticos y algunos ejercicios propuestos.
 
-##### FileWriter
+**FileWriter**
 La clase FileWriter se utiliza para escribir caracteres en un archivo. Permite escribir directamente en el fichero, aunque no es la más eficiente al trabajar con grandes volúmenes de datos.
 
 ```Java
@@ -195,7 +195,7 @@ public class EjemploFileWriter {
 }
 ```
 
-##### BufferedWriter
+**BufferedWriter**
 BufferedWriter se utiliza junto con FileWriter para mejorar la eficiencia, ya que almacena los datos en un buffer antes de escribirlos en el archivo.
 
 ```Java
@@ -215,7 +215,7 @@ public class EjemploBufferedWriter {
 }
 ```
 
-##### PrintWriter
+**PrintWriter**
 PrintWriter permite escribir texto en un archivo de manera más sencilla, similar a cómo funciona System.out.println.
 
 ```Java
@@ -233,33 +233,33 @@ public class EjemploPrintWriter {
 }
 ```
 
->[!Ejercicio 7]
+>[!NOTE] Ejercicio 7
 >Crea un programa que añada a un fichero ”log.txt” una nueva línea en cada ejecución, que contendrá la fecha (en formato 19-09-2019), la hora (17:02:09).
 
->[!Ejercicio 8]
+>[!NOTE] Ejercicio 8
 >Crea un programa que pida al usuario el nombre de un fichero de texto y vuelque su contenido a otro fichero, pero invirtiendo el orden de las líneas (la última pasará a ser la primera, la penúltima será la segunda y así sucesivamente).
 
->[!Ejercicio 9]
+>[!NOTE] Ejercicio 9
 >Escribe un programa que solicite al usuario ingresar 5 frases por teclado y las guarde en un archivo de texto, cada una en una línea diferente.
 
->[!Ejercicio 10]
+>[!NOTE] Ejercicio 10
 >Crea un programa que copie el contenido de un archivo de texto en otro utilizando FileReader y BufferedWriter.
 
->[!Ejercicio 11]
+>[!NOTE] Ejercicio 11
 >Crea un programa que escriba en un fichero ”triangle.txt” un triángulo creciente de asteriscos, del ancho y alto escogido por el usuario.
 
 #### Clases Java para leer ficheros binarios
 
-##### Clase FileInputStream en Java
+**Clase FileInputStream en Java**
 La clase FileInputStream en Java forma parte del paquete java.io y se utiliza para leer datos en bruto desde un archivo. Opera a nivel de bytes, por lo que es adecuada para leer datos binarios como imágenes, audio, vídeo o cualquier tipo de archivo que no sea de texto plano.
 
-###### Características principales de FileInputStream:
+**Características principales de FileInputStream:**
 - Permite leer archivos byte por byte.
 - Es más apropiada para datos binarios que para texto.
 - Se puede combinar con otras clases como InputStreamReader o BufferedInputStream.
 - Lanza excepciones de tipo IOException si ocurre un error en la lectura.
 
-###### Constructores:
+**Constructores:**
 1. `FileInputStream(String nombreArchivo)`
 		Crea un objeto FileInputStream para leer desde el archivo cuyo nombre se pasa por parámetro.
 2. `FileInputStream(File archivo)`
@@ -267,14 +267,14 @@ La clase FileInputStream en Java forma parte del paquete java.io y se utiliza pa
 3. `FileInputStream(FileDescriptor fd)`
 		Crea un objeto FileInputStream usando un descriptor de archivo (nivel más bajo).
 
-###### Métodos más comunes:
+**Métodos más comunes:**
 - `int read()` - Lee un solo byte del archivo (devuelve -1 si es fin de archivo).
 - `int read(byte[] b)` - Lee bytes y los almacena en el array proporcionado.
 - `int read(byte[] b, int off, int len)` - Lee hasta len bytes y los coloca en b desde la posición off.
 - `void close()` - Cierra el flujo de entrada y libera recursos asociados.
 - `int available()` - Devuelve el número estimado de bytes que pueden leerse sin bloquear.
 
-###### Ejemplo de uso
+**Ejemplo de uso**
 ```Java
 public class EjemploFileInputStream {
 	public static void main(String[] args) { 
@@ -290,11 +290,11 @@ public class EjemploFileInputStream {
 }
 ```
 
-##### Clase BufferedInputStream en Java
+**Clase BufferedInputStream en Java**
 
 `BufferedInputStream` mejora el rendimiento de `FileInputStream` al utilizar un buffer intermedio. Es útil cuando se trabaja con archivos grandes.
 
-###### Ejemplo de uso
+**Ejemplo de uso**
 ```Java
 public class EjemploBufferedInputStream { 
 	public static void main(String[] args) {
@@ -314,10 +314,10 @@ public class EjemploBufferedInputStream {
 }
 ```
 
-##### Clase DataInputStream en Java
+**Clase DataInputStream en Java**
 `DataInputStream` permite leer datos primitivos de manera más cómoda (`int`, `double`, `char`, etc.) a partir de un InputStream.
 
-###### Ejemplo de uso
+**Ejemplo de uso**
 ```Java
 public class EjemploDataInputStream { 
 	public static void main(String[] args) {
@@ -336,23 +336,23 @@ public class EjemploDataInputStream {
 }
 ```
 
->[!Ejercicio 11]
+>[!NOTE] Ejercicio 11
 > Crea un programa Java capaz de copiar todo el contenido de un fichero en otro fichero. Debes leer todo el fichero inicial y guardarlo en un único bloque que tendrá el mismo tamaño que el fichero. Los nombres de ambos ficheros pueden estar prefijados o ser pedidos al usuario, como prefieras.
 
->[!Ejercicio 12]
+>[!NOTE] Ejercicio 12
 > Crea un programa que pida al usuario el nombre de un fichero y diga si parece un BMP válido (sus dos primeros bytes son B y M) y, en ese caso, su ancho y su alto. Debes leer por bloques (la cabecera es un bloque de 54 bytes).
 > https://es.wikipedia.org/wiki/Windows_bitmap
 
->[!Ejercicio 13]
+>[!NOTE] Ejercicio 13
 >Crea un programa que pida al usuario el nombre de un fichero BMP y diga si está comprimido (deberás buscar información sobre cómo es la cabecera de un BMP, que deberás leer como bloque).
 
->[!Ejercicio 14]
+>[!NOTE] Ejercicio 14
 >Desarrolla un programa que copie un archivo binario en otro utilizando BufferedInputStream y BufferedOutputStream.
 
-##### Clase RandomAccessFile en Java
+**Clase RandomAccessFile en Java**
 La clase RandomAccessFile de Java forma parte del paquete java.io y se utiliza para leer y escribir en archivos de manera aleatoria, es decir, se puede acceder a cualquier posición dentro del archivo sin necesidad de leerlo secuencialmente desde el inicio.
 
-###### Características principales de RandomAccessFile en java:
+**Características principales de RandomAccessFile en java:**
 Algunas de las características más importantes de la clase RandomAccessFile son:
 - Permite tanto la lectura como la escritura en un archivo.
 - Se puede mover el puntero de archivo a cualquier posición mediante el método seek().
@@ -360,7 +360,7 @@ Algunas de las características más importantes de la clase RandomAccessFile so
 - Proporciona métodos para leer y escribir datos primitivos (int, long, char, etc.).
 - Es útil para aplicaciones que necesitan acceso directo a partes específicas de un archivo, como bases de datos o índices.
 
-###### Ejemplo de uso
+**Ejemplo de uso**
 ```Java
 public class EjemploRandomAccessFile { 
 	public static void main(String[] args) { 
@@ -391,7 +391,7 @@ public class EjemploRandomAccessFile {
 ##### Cabecera ID3 v1 en archivos mp3
 La cabecera ID3 v1 es un estándar utilizado en archivos MP3 para almacenar metadatos relacionados con la pista de audio. Fue introducido en 1996 y permite incluir información básica sobre la canción, como el título, el artista, el álbum y el género, entre otros.
 
-###### Estructura de ID3 v1
+**Estructura de ID3 v1**
 La cabecera ID3 v1 ocupa los últimos 128 bytes de un archivo MP3 y está formada por diferentes campos:
 - 3 bytes: Identificador 'TAG' que marca el inicio de la cabecera.
 - 30 bytes: Título de la canción.
@@ -401,13 +401,13 @@ La cabecera ID3 v1 ocupa los últimos 128 bytes de un archivo MP3 y está formad
 - 30 bytes: Comentarios (en ID3 v1.1, los últimos 2 bytes se usan para número de pista).
 - 1 byte: Género (representado por un número que corresponde a una lista predefinida).
 
-###### Limitaciones
+**Limitaciones**
 - Solo permite texto en codificación ISO-8859-1 (ASCII extendido).
 - Los campos tienen longitud fija y limitada (ejemplo: 30 caracteres para el título).
 - No soporta caracteres especiales o textos largos.
 - Fue reemplazado progresivamente por ID3 v2, que ofrece mucha más flexibilidad.
 
-###### Ejemplo de cabecera ID3 v1
+**Ejemplo de cabecera ID3 v1**
 Un esquema de cómo se verían los últimos 128 bytes de un archivo MP3 con cabecera ID3 v1:
 
 | **offset (bytes)** | **Campos**  |
@@ -420,7 +420,7 @@ Un esquema de cómo se verían los últimos 128 bytes de un archivo MP3 con cabe
 | 97-126             | Comentarios |
 | 127                | Género      |
 
-###### Ejemplo de lectura de cabecera ID3 en Java con FileInputStream:
+**Ejemplo de lectura de cabecera ID3 en Java con FileInputStream:**
 
 ```Java
 public class LectorID3v1 { 
@@ -476,7 +476,7 @@ public class LectorID3v1 {
 }
 ```
 
-###### Ejemplo de lectura de cabecera ID3 en Java con RandomAccessFile:
+**Ejemplo de lectura de cabecera ID3 en Java con RandomAccessFile:**
 
 ```Java
 public class LectorID3v1RAF { 
@@ -533,25 +533,25 @@ public class LectorID3v1RAF {
 			
 ```
 
-> [!Ejercicio 15]
+> [!NOTE] Ejercicio 15
 >  Crea un pequeño programa en Java que reciba como parámetro el nombre de un archivo MP3 y muestre por pantalla los siguientes datos de la cabecera ID3V1: Título, Artista, Álbum, Año, Comentario y Género.
 
->[!Ejercicio 16]
+>[!NOTE] Ejercicio 16
 > Modifica el programa anterior de forma que reciba por parámetro un Directorio y muestre por pantalla todos los archivos mp3 existentes con sus cabeceras ID3V1 correspondientes.
 
->[!Ejercicio 17]
+>[!NOTE] Ejercicio 17
 >Modifica el programa anterior de forma que recorra recursivamente todos los directorios existentes en el Directorio inicial y muestre los archivos MP3 existentes en cada uno.
 
-##### Serialización y deserialización de objetos en Java
+#### Serialización y deserialización de objetos en Java
 La serialización en Java permite convertir un objeto en una secuencia de bytes para almacenarlo en un fichero binario o transmitirlo por red. La deserialización realiza el proceso inverso, reconstruyendo el objeto a partir de los bytes. Esto se implementa principalmente con las clases ObjectOutputStream y ObjectInputStream del paquete java.io.
 
-###### Requisitos básicos
+**Requisitos básicos**
 - La clase debe implementar la interfaz java.io.Serializable (marcador, sin métodos).
 - Se recomienda declarar un campo estático final long serialVersionUID para el control de versiones.
 - Los campos marcados como transient no se serializan.
 - Las referencias a otros objetos también deben ser serializables (o marcarlas transient).
 
-###### Ejemplo básico: guardar y leer un objeto
+**Ejemplo básico: guardar y leer un objeto**
 Clase de dominio: 
 ```Java
 class Persona implements Serializable { 
@@ -593,7 +593,7 @@ ObjectInputStream ois = new ObjectInputStream(fis)) {
 }
 ```
 
-###### Serializar colecciones de objetos
+**Serializar colecciones de objetos**
 Cualquier colección estándar de Java (ArrayList, HashMap, etc.) que sea Serializable puede guardarse con writeObject. Ejemplo: escribir una lista de Personas.
 
 ```Java
@@ -614,4 +614,75 @@ try (ObjectInputStream ois = new ObjectInputStream( new FileInputStream("lista.b
 }
 ```
 
-###### Control de versiones con serialVersionUID
+**Control de versiones con serialVersionUID**
+Declara un serialVersionUID explícito en tus clases. Si la estructura de la clase cambia entre la serialización y la deserialización (por ejemplo, añades/quitas campos), un UID no coincidente puede provocar InvalidClassException. Con un UID estable, puedes hacer cambios compatibles (añadir campos con valores por defecto, marcar nuevos campos como transient, etc.).
+
+**Personalizar el proceso: writeObject/readObject**
+Puedes definir métodos privados writeObject(ObjectOutputStream out) y readObject(ObjectInputStream in) para controlar cómo se serializa/deserializa la clase (por ejemplo, encriptar un campo, normalizar datos o calcular transitorios).
+
+Ejemplo: 
+
+```Java
+private void writeObject(ObjectOutputStream out) throws IOException {
+	out.defaultWriteObject(); // serializa los campos no transient normalmente 
+	
+	// ejemplo: escribir un checksum o metadato adicional 
+	out.writeInt(42); 
+}
+
+private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+	in.defaultReadObject(); 
+	int checksum = in.readInt(); 
+	// validar checksum, reconstruir campos transient, etc. 
+}
+```
+
+**Buenas prácticas y consideraciones**
+- Usa try-with-resources para cerrar streams automáticamente.
+- Evita serializar contraseñas o datos sensibles; usa transient o encripta manualmente.
+- Define serialVersionUID de forma explícita y documenta cambios de versión.
+- Considera la compatibilidad entre versiones si persistes durante mucho tiempo.
+- Maneja ClassNotFoundException al deserializar (clases deben estar disponibles en el classpath).
+ - La serialización nativa de Java no es interoperable con otros lenguajes; para APIs o ficheros duraderos, valora formatos como JSON, Protobuf o Avro.
+
+**Ejemplo completo**
+```Java
+try (ObjectOutputStream oos = new ObjectOutputStream( new FileOutputStream("datos.bin"))) { 
+	oos.writeObject(new Persona("Ana", 30, "x", List.of("cine"))); 
+	oos.writeObject(new Persona("Luis", 28, "y", List.of("música"))); 
+} catch (IOException e) { 
+		e.printStackTrace(); 
+} 
+	
+try (ObjectInputStream ois = new ObjectInputStream( new FileInputStream("datos.bin"))) { 
+	Persona a = (Persona) ois.readObject(); 
+	Persona b = (Persona) ois.readObject(); 
+	System.out.println(a.nombre + ", " + b.nombre); 
+} catch (IOException | ClassNotFoundException e) { 
+	e.printStackTrace(); 
+}
+```
+
+**Errores comunes**
+- java.io.NotSerializableException: algún campo o clase no implementa Serializable.
+- InvalidClassException: el serialVersionUID no coincide entre la clase y el stream serializado.
+- EOFException: fin de fichero alcanzado al leer; puede indicar escrituras/lecturas desalineadas.
+- StreamCorruptedException: cabecera o formato del stream dañados (posible mezcla de streams).
+
+>[!NOTE] Ejercicio 18
+>Implementa una clase Producto (id, nombre, precio) Serializable y guarda una lista en productos.bin.
+
+>[!NOTE] Ejercicio 19
+>Lee los productos guardados en productos.bin y reconstruye la lista.
+
+>[!NOTE] Ejercicio 20
+>Marca como transient un campo sensible (apiKey) y reconstruyelo en readObject con un valor por defecto.
+
+>[!NOTE] Ejercicio 21
+>Crea un programa capaz de pedir al usuario nuevos datos de amigos (nombre, edad, e-mail, comentarios), mostrar todos los existentes (sólo nombre) o buscar (en nombre, e-mail, y comentarios, independientemente de mayúsculas, y mostrando todos los datos). Cada vez que se añada un amigo, se guardarán sus datos en fichero, usando serialización. Cada vez que se vuelva a entrar al programa, se cargarán los datos existentes.
+>El menú mostrará las opciones:
+>1. Añadir una persona.
+>2. Ver nombres de todos.
+>3. Buscar
+>4. Salir
+
