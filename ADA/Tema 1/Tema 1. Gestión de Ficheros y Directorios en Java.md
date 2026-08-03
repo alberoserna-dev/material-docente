@@ -1,5 +1,6 @@
 ## Acceso al sistema de archivos desde Java
 ### Clase File en Java
+
 La clase File de Java forma parte del paquete java.io y se utiliza para representar rutas de archivos y directorios en el sistema de archivos. No proporciona métodos para leer o escribir directamente en los archivos, sino que sirve como un objeto abstracto que describe la ruta y permite realizar operaciones relacionadas con la gestión de archivos.
 Características principales
 
@@ -47,6 +48,7 @@ Crea un programa Java que reciba como parámetro el nombre de un Directorio y mu
 En Java existen diferentes clases y enfoques para leer ficheros de texto. La elección depende de si se busca simplicidad, eficiencia o un control más avanzado sobre la codificación. A continuación, se explican las principales clases con ejemplos prácticos.
 
 ### FileReader
+
 La clase FileReader permite leer caracteres directamente desde un archivo. Es adecuada para leer texto básico, pero normalmente se combina con BufferedReader para mejorar el rendimiento. 
 
 Este método lee un solo carácter y te devuelve un **`int`** (el valor numérico de ese carácter en la tabla Unicode, por ejemplo, 65 para la 'A'). Es por esto que es necesario el casteo a `char` que se muestra en el ejemplo:
@@ -67,6 +69,7 @@ public class EjemploFileReader {
 ```
 
 ### BufferedReader
+
 BufferedReader permite leer texto de manera eficiente, especialmente línea por línea. Se suele utilizar junto con FileReader o InputStreamReader. Importante advertir que en este caso ya no es necesario el casteo.
 
 Este método internamente, lee esos carácteres numéricos que ofrecía FileReader, los junta en su array de memoria (Buffer), y cuando detecta un salto de línea (`\n`), empaqueta todos esos caracteres y fabrica el `String`. El casteo de `int` a `char` ya está hecho dentro del tratamiento realizado por la clase `BufferedReader`.
@@ -87,6 +90,7 @@ public class EjemploBufferedReader {
 ```
 
 ### InputStreamReader
+
 InputStreamReader convierte un flujo de bytes en caracteres, permitiendo especificar una codificación como UTF-8. Se combina habitualmente con BufferedReader.
 
 Dado que InputStreamReader trabaja con flujo de Bytes, no es posible usarlo con la clase FileReader que usábamos hasta ahora, la cual leía caracteres a través de su codificación (`int`). Es por ello que, para usar InputStreamReader, accedemos al fichero a través de la clase FileInputStream, que nos ofrece el flujo de bytes correspondiente al contenido del fichero.
@@ -115,6 +119,7 @@ este apilamiento de triple `new` (`new BufferedReader(new InputStreamReader(new 
 3. **Línea final (El Empaquetador - `BufferedReader`):** Recoge las piezas del fundidor, las mete en su almacén temporal (buffer) y te entrega cajas completas y ordenadas (Líneas de texto / `String`).
 
 ### Files.readAllLines
+
 El método Files.readAllLines lee todas las líneas de un archivo y las devuelve en una lista de Strings. Es una forma sencilla de obtener todo el contenido de un archivo pequeño o mediano. Es importante tener en cuenta que, dado que lee todas las líneas del fichero, si el archivo es grande puede suponer problemas de memoria de la aplicación.
 
 ```Java
@@ -131,6 +136,7 @@ public class EjemploFilesReadAllLines {
 ```
 
 ### Files.lines
+
 Files.lines devuelve un Stream de las líneas de un archivo, lo que permite procesarlas con las funcionalidades de Streams de Java 8 o superior.
 
 ```Java
@@ -146,6 +152,7 @@ public class EjemploFilesLines {
 ```
 
 ### Scanner
+
 La clase Scanner de java.util se puede utilizar para leer archivos de texto de manera sencilla, línea a línea o token por token. Permite definir la codificación del archivo.
 
 ```Java
@@ -178,6 +185,7 @@ public class EjemploScanner {
 En Java, existen varias clases dentro del paquete java.io que permiten escribir ficheros de texto. Entre las más utilizadas se encuentran FileWriter, BufferedWriter y PrintWriter. A continuación, se explican sus usos con ejemplos prácticos y algunos ejercicios propuestos.
 
 ### FileWriter
+
 La clase FileWriter se utiliza para escribir caracteres en un archivo. Permite escribir directamente en el fichero, aunque no es la más eficiente al trabajar con grandes volúmenes de datos.
 
 ```Java
@@ -195,6 +203,7 @@ public class EjemploFileWriter {
 ```
 
 ### BufferedWriter
+
 BufferedWriter se utiliza junto con FileWriter para mejorar la eficiencia, ya que almacena los datos en un buffer antes de escribirlos en el archivo.
 
 ```Java
@@ -215,6 +224,7 @@ public class EjemploBufferedWriter {
 ```
 
 ### PrintWriter
+
 PrintWriter permite escribir texto en un archivo de manera más sencilla, similar a cómo funciona System.out.println.
 
 ```Java
@@ -250,6 +260,7 @@ public class EjemploPrintWriter {
 ## Clases Java para leer ficheros binarios
 
 ### Clase FileInputStream en Java
+
 La clase FileInputStream en Java forma parte del paquete java.io y se utiliza para leer datos en bruto desde un archivo. Opera a nivel de bytes, por lo que es adecuada para leer datos binarios como imágenes, audio, vídeo o cualquier tipo de archivo que no sea de texto plano.
 
 **Características principales de FileInputStream:**
@@ -290,6 +301,7 @@ public class EjemploFileInputStream {
 ```
 
 ### Clase BufferedInputStream en Java
+
 `BufferedInputStream` mejora el rendimiento de `FileInputStream` al utilizar un buffer intermedio. Es útil cuando se trabaja con archivos grandes.
 
 **Ejemplo de uso**
@@ -313,6 +325,7 @@ public class EjemploBufferedInputStream {
 ```
 
 ### Clase DataInputStream en Java
+
 `DataInputStream` permite leer datos primitivos de manera más cómoda (`int`, `double`, `char`, etc.) a partir de un InputStream.
 
 **Ejemplo de uso**
@@ -348,6 +361,7 @@ public class EjemploDataInputStream {
 >Desarrolla un programa que copie un archivo binario en otro utilizando BufferedInputStream y BufferedOutputStream.
 
 ### Clase RandomAccessFile en Java
+
 La clase RandomAccessFile de Java forma parte del paquete java.io y se utiliza para leer y escribir en archivos de manera aleatoria, es decir, se puede acceder a cualquier posición dentro del archivo sin necesidad de leerlo secuencialmente desde el inicio.
 
 **Características principales de RandomAccessFile en java:**

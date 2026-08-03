@@ -1,5 +1,69 @@
---- title: "Mapeo objeto-relacional. Hibernate con anotaciones" ---
-## 1.  Anotaciones en Hibernate.
+## Concepto de Mapeo Objeto-Relacional.
+En la unidad anterior aprendimos a conectar nuestra aplicación a PostgreSQL mediante JDBC. Aunque JDBC es muy potente, nos obliga a escribir mucho código repetitivo para traducir manualmente los registros de las tablas relacionales (filas y columnas) a nuestros objetos de Java, y viceversa. Este problema estructural se conoce como **Desajuste Objeto-Relacional**. Se denomina **desajuste objeto-relacional** (en inglés “Object-relational impedance mismatch”) a la serie de dificultades conceptuales y técnicas que aparecen al emplear un gestor de bases de datos relacional como medio de almacenamiento para una aplicación creada con un diseño orientado a objetos, debidas a que los objetos se deben _“mapear”_ para convertirse en tablas del esquema relacional.
+
+La idea de dicho “mapeo” es convertir los objetos en datos primitivos del gestor de bases de datos, que se puedan guardar en tablas de una base de datos relacional, así como volver a generar un objeto a partir de esos datos primitivos cuando se desee consultar la información. Para solucionar esta brecha, surge el concepto de **ORM (Mapeo Objeto-Relacional)**. Un ORM es una técnica (y un conjunto de librerías) que automatiza la conversión entre el modelo orientado a objetos de Java y el modelo relacional de la base de datos.
+![[image1_ORM.png]]
+
+Con un ORM, en lugar de escribir sentencias `INSERT` o `SELECT` en lenguaje SQL puro, trabajamos directamente guardando y recuperando objetos Java. El motor ORM se encarga por debajo de generar y ejecutar el código SQL óptimo correspondiente.
+
+## Java Persistence API (JPA).
+La API de persistencia de Java (Java Persistence API, JPA) es una especificación de interfaz de programación de aplicaciones (API) para Java, que detalla cómo manipular datos relacionales en aplicaciones de Java SE y Java EE. Existen distintas tecnologías relacionadas con JPA, como por ejemplo:
+- **Enterprise JavaBeans (EJB)**: Es una de las interfaces de programación (API) que forma parte de Java Enterprise Edition. Incluye una serie de objetos que son útiles en la programación en el lado del servidor, y que pueden facilitar tareas como el proceso de transacciones, la gestión de la concurrencia, la invocación asíncrona de métodos, la planificación de tareas, servicios de directorio, seguridad, etc. La especificación EJB 3.0 (a su vez parte de la plataforma Java EE 5) incluye soporte de persistencia.
+- **Java Data Objects API**: El API de persistencia de Java especifica la forma de implementar persistencia para sistemas gestores de bases de datos relacionales (aunque algunos proveedores dan soporte a otros modelos de bases de datos).
+- **Hibernate ORM (o simplemente Hibernate)**: es un framework de código abierto para mapeo objeto-relacional en Java. Las versiones 3.2 y posteriores implementan el API de persistencia de Java. Será la herramienta en la que nos centremos en este tema.
+
+## Hibernate
+La idea básica de Hibernate es que existirán ficheros XML de configuración que indiquen cómo se deben convertir los objetos a tablas y viceversa. En esta unidad, generaremos estos ficheros de configuración siguiendo el estandar de JPA, para facilitar la transición hacia unidades posteriores. Estos ficheros se pueden crear a mano, y algunos IDE como Eclipse o Spring Tool Suite incluyen asistentes para crear el proceso automáticamente.
+
+**Creación del nuevo proyecto Hibernate**
+Comenzamos creando un nuevo proyecto Maven en nuestro IDE de confianza y, para comenzar a trabajar con Hibernate, debemos indicar a nuestro nuevo proyecto que este será el framework que utilizaremos para ORM. Para ello, añadimos la dependencia de Hibernate y la de Postgresql en nuestro fichero pom.xml.
+
+![[Pasted image 20260630125412.png]]
+
+**El archivo persistence.xml**
+Para que Hibernate sepa a qué base de datos debe conectarse y qué credenciales utilizar, necesita un archivo de configuración central. En el estándar JPA, este archivo debe llamarse obligatoriamente **`persistence.xml`** y debe estar ubicado en una ruta muy específica dentro del proyecto Maven: `src/main/resources/META-INF/persistence.xml`.
+
+Dentro de este archivo XML, definimos una o varias "Unidades de Persistencia" (`persistence-unit`). Cada unidad agrupa la configuración para una base de datos concreta. A continuación se muestra la configuración estándar moderna para conectar nuestra aplicación a la base de datos `instituto` de PostgreSQL.
+
+> **Nota técnica:** Es vital prestar atención al espacio de nombres (`xmlns`) en la etiqueta raíz. En proyectos modernos (Hibernate 6+), se debe utilizar el espacio de nombres de **Jakarta** en lugar del antiguo esquema de **Javax**, garantizando así la compatibilidad y evitando dependencias obsoletas.
+
+```XML
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+             version="3.0">
+
+    <!-- Definimos nuestra unidad de persistencia -->
+    <persistence-unit name="InstitutoPU" transaction-type="RESOURCE_LOCAL">
+        
+        <!-- Indicamos explícitamente que usamos el proveedor de Hibernate -->
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <properties>
+            <!-- 1. Credenciales y conexión JDBC a PostgreSQL -->
+            <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver" />
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/instituto" />
+            <property name="jakarta.persistence.jdbc.user" value="postgres" />
+            <property name="jakarta.persistence.jdbc.password" value="password123" />
+
+            <!-- 2. Comportamiento del motor de base de datos -->
+            <!-- update: Actualiza el esquema de la BD automáticamente si hay cambios en las clases -->
+            <property name="jakarta.persistence.schema-generation.database.action" value="update" />
+
+            <!-- 3. Depuración y Logs -->
+            <!-- Muestra por consola las sentencias SQL reales que Hibernate genera y ejecuta -->
+            <property name="hibernate.show_sql" value="true" />
+            <!-- Formatea el SQL por consola para que sea legible -->
+            <property name="hibernate.format_sql" value="true" />
+        </properties>
+        
+    </persistence-unit>
+</persistence>
+```
+
+
+## Anotaciones en Hibernate.
 
 El formato XML tiene muchos detractores, que lo consideran “demasiado farragoso” y poco legible en documentos de un cierto tamaño. En ciertos entornos se prefieren notaciones más compactas, como JSON. En Java, en ciertos casos se pueden emplear “anotaciones”, etiquetas especiales precedidas por el símbolo de la arroba (@). Hibernate permite también usar anotaciones en vez de ficheros XML, de hecho es lo más común cuando se trabaja con Hibernate-Spring.
 
@@ -176,8 +240,8 @@ public class Autores implements java.io.Serializable{
   
 Significa que la clase “Autores” en Java estará enlazada con la tabla “autores” de PostgreSql, la etiqueta @Entity indica que se corresponde a una entidad de la base de datos y con la etiqueta @Table le indico el nombre de la tabla (que podría llamarse diferente a la clase de Java). Si no ponemos la etiqueta @Table, Hibernate buscará una tabla en la base de datos que se llame igual que la clase en minúsculas por lo que en este caso como existe no es imprescindible esa etiqueta ya que hubiera buscado ese nombre por defecto.
 
->[!NOTE] Recordatorio:
-Importante llamar a las **tablas en postgres en minúsculas**.
+> Recordatorio:
+> Importante llamar a las **tablas en postgres en minúsculas**.
 
 
 ```Java

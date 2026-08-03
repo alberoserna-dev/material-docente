@@ -15,8 +15,7 @@ La API DOM, incluida en el paquete `javax.xml.parsers` nativo de Java, lee el ar
 - Es ideal para documentos XML de tamaño pequeño o mediano.
 - Puede generar problemas de rendimiento (desbordamiento de memoria) si el archivo XML es de varios Gigabytes.
 
-#### Ejemplo de uso: Lectura básica con DOM
-
+**Ejemplo de uso: Lectura básica con DOM**
 Supongamos que tenemos un archivo llamado `empleados.xml` con la siguiente estructura:
 
 ```XML
@@ -92,13 +91,11 @@ Como hemos visto, la API DOM es muy cómoda porque nos permite navegar por el XM
 Para solucionar esto, Java incorpora la **API SAX** (_Simple API for XML_). SAX utiliza un enfoque completamente distinto: el **procesamiento basado en eventos**.
 
 **Características principales de SAX:**
-
 - **Lectura secuencial:** Lee el archivo de principio a fin, línea a línea, sin cargar el documento completo en memoria.
 - **Solo lectura:** A diferencia de DOM, con SAX no podemos modificar el archivo XML ni añadir nuevos nodos, solo leer información.
 - **Eficiencia máxima:** El consumo de memoria es mínimo y constante, independientemente de si el archivo pesa 2 Kilobytes o 10 Gigabytes.
 
 **¿Cómo funcionan los Eventos en SAX?**
-
 En lugar de buscar nosotros los datos, el _Parser_ (analizador) de SAX va leyendo el archivo y nos "avisa" cada vez que encuentra algo interesante. Para interceptar estos avisos, debemos crear una clase que herede de `DefaultHandler` y sobrescribir los métodos que nos interesen:
 
 1. `startDocument()`: Se dispara al abrir el archivo.
@@ -108,7 +105,6 @@ En lugar de buscar nosotros los datos, el _Parser_ (analizador) de SAX va leyend
 5. `endDocument()`: Se dispara al terminar de leer el archivo.
 
 **Ejemplo de uso: Lectura eficiente con SAX**
-
 Vamos a leer el mismo archivo `empleados.xml` del apartado anterior, pero esta vez utilizando SAX. Para ello, necesitamos nuestra clase principal y una clase _Manejador_ (`Handler`).
 
 ```Java
