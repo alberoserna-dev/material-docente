@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "ADA/Tema 3/Tema 3. Conectividad a Bases de Datos Relacionales mediante JDBC..md",
+                "file": "SAD/UP 1/Unidad 1. Principios de Seguridad Informática.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Tema 3. Conectividad a Bases de Datos Relacionales mediante JDBC."
+              "title": "Unidad 1. Principios de Seguridad Informática"
             }
           }
         ],
@@ -216,15 +216,17 @@
   },
   "active": "db8163e17e3431d6",
   "lastOpenFiles": [
+    "ADA/Tema 1/Tema 1. Gestión de Ficheros y Directorios en Java.md",
+    "SAD/UP 1/Unidad 1. Principios de Seguridad Informática.md",
+    "ADA/Tema 3/Tema 3. Conectividad a Bases de Datos Relacionales mediante JDBC..md",
+    "SAD/UP 1",
     "PARE/Enrutamiento Dinámico.md",
     "ADA/Tema 4/Tema 4. Mapeo objeto-relacional con Hibernate..md",
     "Pasted image 20260630125412.png",
-    "ADA/Tema 3/Tema 3. Conectividad a Bases de Datos Relacionales mediante JDBC..md",
     "ADA/Tema 4/image1_ORM.png",
     "ADA/Tema 4/Gemini_Generated_Image_xjv4m8xjv4m8xjv4.png",
     "ADA/Tema 3/image1_StatementVsPrepared.jpg",
     "ADA/Tema 2/Tema 2. Manejo de formatos de intercambio.md",
-    "ADA/Tema 1/Tema 1. Gestión de Ficheros y Directorios en Java.md",
     "ADA/Tema 3",
     "ADA/Tema 2",
     "ADA/Tema 6 - Spring Data JPA/Tema 6. Componentes - Spring..md",
