@@ -38,10 +38,26 @@
           {
             "id": "db8163e17e3431d6",
             "type": "leaf",
+            "pinned": true,
             "state": {
               "type": "markdown",
               "state": {
-                "file": "SAD/UP 1/Unidad 1. Principios de Seguridad Informática.md",
+                "file": "SAD/UD 2/Unidad 2. Implantación de mecanismos de seguridad activa.md",
+                "mode": "source",
+                "source": false
+              },
+              "pinned": true,
+              "icon": "lucide-file",
+              "title": "Unidad 2. Implantación de mecanismos de seguridad activa"
+            }
+          },
+          {
+            "id": "448e9e95a2c8d533",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "SAD/UD 1/Unidad 1. Principios de Seguridad Informática.md",
                 "mode": "source",
                 "source": false
               },
@@ -216,10 +232,14 @@
   },
   "active": "db8163e17e3431d6",
   "lastOpenFiles": [
+    "SAD/UD 1/Unidad 1. Principios de Seguridad Informática.md",
+    "SAD/UD 2/Unidad 2. Implantación de mecanismos de seguridad activa.md",
+    "SAD/UP 1/Sin título.md",
+    "SAD/Sin nombre 1",
+    "SAD/UD 2",
     "ADA/Tema 1/Tema 1. Gestión de Ficheros y Directorios en Java.md",
-    "SAD/UP 1/Unidad 1. Principios de Seguridad Informática.md",
     "ADA/Tema 3/Tema 3. Conectividad a Bases de Datos Relacionales mediante JDBC..md",
-    "SAD/UP 1",
+    "SAD/UD 1",
     "PARE/Enrutamiento Dinámico.md",
     "ADA/Tema 4/Tema 4. Mapeo objeto-relacional con Hibernate..md",
     "Pasted image 20260630125412.png",

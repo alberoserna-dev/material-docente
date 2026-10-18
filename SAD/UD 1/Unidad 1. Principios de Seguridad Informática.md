@@ -80,13 +80,13 @@ Una vulnerabilidad es cualquier debilidad, fallo o deficiencia presente en un si
 
 El análisis de vulnerabilidades es el procedimiento utilizado para localizar y clasificar estas debilidades antes de que ocasionen un problema. Este trabajo se apoya en revisiones manuales y en el uso de herramientas de software especializadas que automatizan la búsqueda de fallos:
 
-|**Herramienta**|**Enfoque principal**|**Función destacada**|
-|---|---|---|
-|**Nmap**|Análisis de red y puertos|Orientado al descubrimiento de equipos conectados y servicios activos, sirviendo como base para posteriores análisis.|
-|**Nessus**|Escaneo de servicios accesibles|Detección automatizada de vulnerabilidades conocidas y generación de informes de gravedad.|
-|**OpenVAS / Greenbone**|Escaneo de servicios accesibles|Alternativa de código abierto para la identificación y gestión de vulnerabilidades en red.|
-|**Lynis**|Auditoría interna del sistema|Análisis profundo en entornos Linux/Unix para proponer mejoras de fortificación (_hardening_) en la configuración del equipo.|
-|**OpenSCAP**|Auditoría de normativas|Comprobación automatizada para verificar si un sistema cumple con políticas o estándares de seguridad específicos.|
+| **Herramienta**         | **Enfoque principal**           | **Función destacada**                                                                                                         |
+| ----------------------- | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| **Nmap**                | Análisis de red y puertos       | Orientado al descubrimiento de equipos conectados y servicios activos, sirviendo como base para posteriores análisis.         |
+| **Nessus**              | Escaneo de servicios accesibles | Detección automatizada de vulnerabilidades conocidas y generación de informes de gravedad.                                    |
+| **OpenVAS / Greenbone** | Escaneo de servicios accesibles | Alternativa de código abierto para la identificación y gestión de vulnerabilidades en red.                                    |
+| **Lynis**               | Auditoría interna del sistema   | Análisis profundo en entornos Linux/Unix para proponer mejoras de fortificación (_hardening_) en la configuración del equipo. |
+| **OpenSCAP**            | Auditoría de normativas         | Comprobación automatizada para verificar si un sistema cumple con políticas o estándares de seguridad específicos.            |
 
 ## 2.2. Conceptos de amenaza, ataque y riesgo
 
