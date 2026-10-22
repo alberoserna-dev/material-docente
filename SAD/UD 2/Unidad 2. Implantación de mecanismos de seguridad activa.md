@@ -74,6 +74,18 @@ Comprender esta secuencia es vital en la seguridad activa: si los sistemas de de
     
 5. **Acción sobre los objetivos y Borrado de huellas (_Actions on Objectives & Clearing Tracks_):** En la fase final, el intruso lleva a cabo su propósito real: robo masivo de bases de datos, cifrado de la infraestructura (_ransomware_) o destrucción de información. Para retrasar la detección y dificultar el trabajo del análisis forense, el atacante manipulará o eliminará los registros de eventos (_logs_) del sistema, borrando sus huellas.
 
+>[!NOTE] Ejercicio 1
+>Durante una fuga masiva de información se han reconstruido los siguientes eventos en orden NO cronológico:
+>
+>- El programa malicioso modificó el registro de Windows para asegurarse de que volvería a arrancar automáticamente cada vez que se encendiera el ordenador.
+>- El código localizó la carpeta compartida con los datos de nóminas, comprimió los archivos, los envió a un servidor externo y procedió a eliminar el historial del Visor de eventos para ocultar la transferencia.
+>- Un individuo anónimo rastreó los perfiles de LinkedIn de los empleados del departamento de Recursos Humanos de la organización.
+>- Al intentar abrir el documento, el código oculto aprovechó una vulnerabilidad antigua no parcheada en el visor de PDF del equipo para ejecutarse en segundo plano.
+>- El individuo envió un correo electrónico dirigido específicamente a la responsable de selección, suplantando la identidad de un candidato legítimo y adjuntando un falso currículum en formato ZIP.
+>
+>Relacionad cada suceso (A, B, C, D, E) con su fase correspondiente dentro de la _Cyber Kill Chain_
+>  
+
 # 3. Análisis de malware y entornos de ejecución controlados.
 Una vez comprendida la anatomía de un ciberataque y las diferentes tipologías de _software_ malicioso, el siguiente paso en la estrategia de seguridad activa consiste en diseccionar estas amenazas. El análisis de _malware_ es el proceso de estudiar el comportamiento, el código y el impacto de un archivo sospechoso para descifrar su funcionamiento interno.
 
