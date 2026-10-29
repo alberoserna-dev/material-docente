@@ -94,7 +94,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -258,12 +258,15 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "db8163e17e3431d6",
+  "active": "4a53035125e501d8",
   "lastOpenFiles": [
-    "SAD/UD 2/Práctica. Simulación de infección por Ransomware.md",
-    "SAD/UD 2/Unidad 2. Implantación de mecanismos de seguridad activa.md",
-    "SAD/UD 1/Unidad 1. Principios de Seguridad Informática.md",
+    "SRI/UD 1/Práctica 1. Despliegue de un Servidor DNS Primario.md",
     "SRI/UD 1/Unidad 3. Fundamentos de Servicios DNS..md",
+    "SAD/UD 2/Unidad 2. Implantación de mecanismos de seguridad activa.md",
+    "SAD/UD 2/Práctica. Simulación de infección por Ransomware.md",
+    "SAD/UD 2/Práctica. Simulación de infección por Ransomware 1.md",
+    "SAD/UD 1/Unidad 1. Principios de Seguridad Informática.md",
+    "Sin nombre",
     "SRI/UD 1",
     "SRI",
     "SAD/UP 1/Sin título.md",

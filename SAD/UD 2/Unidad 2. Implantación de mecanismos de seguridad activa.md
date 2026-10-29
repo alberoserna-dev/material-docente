@@ -140,3 +140,50 @@ Si durante el análisis en el laboratorio descubrimos que un _ransomware_ siempr
 3. **Condition (Condición):** Establece la regla lógica matemática que determina si el archivo analizado está infectado o no. Por ejemplo, se puede configurar una condición que dicte: _"Si el archivo contiene la cadena A y al menos una de las cadenas B o C, clasifícalo como este Ransomware específico"_.
 
 Gracias al uso de estas reglas, los Sistemas de Detección de Intrusiones (IDS) y los motores antimalware corporativos pueden escudriñar todo el tráfico y los archivos de la empresa, identificando e interceptando la amenaza incluso si el atacante ha intentado camuflarla modificando su _hash_ original.
+
+### 3.4. Prueba de concepto de un ataque lógico
+
+**Fase 1: Preparación del escenario**
+
+1. Se creará una carpeta llamada `Simulacion_Aula`.
+2. Dentro de esta carpeta, se creará un archivo de texto llamado `nomina_direccion.txt` con un contenido legible (por ejemplo: _"Salario base: 0,5 bitcoins. Bonificaciones: 0.01 bitcoins"_).
+3. Se abrirá dicho archivo para comprobar que el sistema operativo lo lee sin problemas mediante el bloc de notas.
+
+**Fase 2: El bloqueo de la seguridad base (Execution Policy)**
+
+1. Abrir una consola de PowerShell estándar (sin privilegios de administrador iniciales).
+2. Introduciendo el comando `Get-ExecutionPolicy`, comprobar el modo de ejecución del sistema. Abrir PowerShell como Administrador permite utilizar el comando `Set-ExecutionPolicy [modo]` para modificar dicho modo de ejecución entre:
+	1. **Restricted:** Permite ejecutar comandos individuales, pero bloquea por completo la ejecución de cualquier _script_ (`.ps1`).
+	2. **RemoteSigned:** Permite ejecutar _scripts_ creados localmente en el equipo. Sin embargo, exige que los _scripts_ descargados de internet estén firmados digitalmente por un editor de confianza.
+	3. **Unrestricted:** Elimina las restricciones principales, permitiendo la ejecución de cualquier _script_. Si el archivo procede de internet, el sistema mostrará una advertencia solicitando confirmación antes de ejecutarlo.
+	4. **Bypass:** Ignora todas las advertencias y reglas de seguridad, ejecutando cualquier código sin solicitar confirmación al usuario. Es el nivel de mayor riesgo y el utilizado frecuentemente para evitar bloqueos durante los despliegues automatizados.
+3. Crear un pequeño _script_ de prueba muy básico llamado `ataque.ps1` que simplemente intente mostrar un mensaje por pantalla: `Write-Host "Iniciando secuestro de datos..." -ForegroundColor Red`.
+4. Al intentar ejecutar `./ataque.ps1`, la consola mostrará un bloque de texto rojo: el sistema ha bloqueado la ejecución, si nos encontramos en modo Restricted, o mostrará la cadena de texto si nos encontramos en uno de los otros modos.
+
+
+**Fase 3: Simulación del cifrado** 
+
+1. Modificar el _script_ `ataque.ps1` para incluir tres líneas básicas que simulen el comportamiento de un _ransomware_, utilizando comandos nativos para convertir el texto legible en una cadena de caracteres ofuscada.:
+
+```PowerShell
+# Lee el contenido íntegro del archivo original y lo almacena temporalmente en la variable $contenido.
+$contenido = Get-Content .\nomina_direccion.txt
+
+# Convierte el texto legible de la variable a una matriz de bytes utilizando codificación UTF-8. 
+$bytes = [System.Text.Encoding]::UTF8.GetBytes($contenido)
+
+# Transforma la matriz de bytes en una cadena de texto ofuscada utilizando el formato Base64. 
+$cifrado = [Convert]::ToBase64String($bytes)
+
+# Crea un nuevo archivo en el sistema añadiendo la extensión '.locked' a su nombre, y escribe en su interior la cadena de texto ofuscada.
+Set-Content .\nomina_direccion.txt.locked -Value $cifrado
+
+# Elimina el archivo original de la carpeta.
+Remove-Item .\nomina_direccion.txt
+
+# Imprime un mensaje por la pantalla de la consola.
+Write-Host "Tus archivos han sido secuestrados. Se requiere clave para revertir el proceso."
+```
+
+2. Al ejecutar de nuevo `./ataque.ps1`, el archivo original desaparecerá visualmente del escritorio y será sustituido por `nomina_direccion.txt.locked`.
+3. Al intentar abrir el nuevo archivo con el bloc de notas, el alumnado observará que el texto original ha sido destruido y reemplazado por una cadena de caracteres incomprensible.
