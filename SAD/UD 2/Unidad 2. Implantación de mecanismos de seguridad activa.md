@@ -157,13 +157,11 @@ Gracias al uso de estas reglas, los Sistemas de Detección de Intrusiones (IDS) 
 	2. **RemoteSigned:** Permite ejecutar _scripts_ creados localmente en el equipo. Sin embargo, exige que los _scripts_ descargados de internet estén firmados digitalmente por un editor de confianza.
 	3. **Unrestricted:** Elimina las restricciones principales, permitiendo la ejecución de cualquier _script_. Si el archivo procede de internet, el sistema mostrará una advertencia solicitando confirmación antes de ejecutarlo.
 	4. **Bypass:** Ignora todas las advertencias y reglas de seguridad, ejecutando cualquier código sin solicitar confirmación al usuario. Es el nivel de mayor riesgo y el utilizado frecuentemente para evitar bloqueos durante los despliegues automatizados.
-3. Crear un pequeño _script_ de prueba muy básico llamado `ataque.ps1` que simplemente intente mostrar un mensaje por pantalla: `Write-Host "Iniciando secuestro de datos..." -ForegroundColor Red`.
-4. Al intentar ejecutar `./ataque.ps1`, la consola mostrará un bloque de texto rojo: el sistema ha bloqueado la ejecución, si nos encontramos en modo Restricted, o mostrará la cadena de texto si nos encontramos en uno de los otros modos.
 
 
 **Fase 3: Simulación del cifrado** 
 
-1. Modificar el _script_ `ataque.ps1` para incluir tres líneas básicas que simulen el comportamiento de un _ransomware_, utilizando comandos nativos para convertir el texto legible en una cadena de caracteres ofuscada.:
+1. Crear un _script_ `ataque.ps1` que simule el comportamiento de un _ransomware_, utilizando comandos nativos para convertir el texto legible en una cadena de caracteres ofuscada.:
 
 ```PowerShell
 # Lee el contenido íntegro del archivo original y lo almacena temporalmente en la variable $contenido.
@@ -187,3 +185,196 @@ Write-Host "Tus archivos han sido secuestrados. Se requiere clave para revertir 
 
 2. Al ejecutar de nuevo `./ataque.ps1`, el archivo original desaparecerá visualmente del escritorio y será sustituido por `nomina_direccion.txt.locked`.
 3. Al intentar abrir el nuevo archivo con el bloc de notas, el alumnado observará que el texto original ha sido destruido y reemplazado por una cadena de caracteres incomprensible.
+
+# 4. Fortificación del sistema (_Hardening_)
+
+La fortificación consiste en el proceso sistemático de asegurar un sistema operativo, aplicación o infraestructura de red mediante la reducción de su exposición a posibles ciberataques. Se trata de una medida de seguridad activa, pero a la vez preventiva. Se asume que el sistema base, en su configuración por defecto, es vulnerable. El objetivo principal es establecer múltiples capas defensivas siguiendo el principio de **Defensa en Profundidad**, garantizando que si un atacante logra evadir un control de seguridad perimetral de los estudiados en la unidad 1, se enfrente inmediatamente a restricciones internas.
+
+## 4.1. Defensa en Profundidad y Superficie de Ataque
+
+Para comprender las técnicas de fortificación, es necesario definir previamente el concepto de **superficie de ataque**. Este término engloba la suma de todos los puntos de entrada, interfaces, servicios, protocolos y vulnerabilidades conocidas que un usuario malintencionado podría utilizar para introducir o extraer datos de un entorno corporativo.
+
+A mayor cantidad de _software_ instalado, puertos abiertos y servicios ejecutándose en segundo plano, mayor es la superficie de ataque. Por tanto, el primer pilar del _hardening_ es el **Principio de Mínima Funcionalidad**. Este principio establece que un sistema corporativo debe configurarse para ejecutar única y exclusivamente las aplicaciones y servicios estrictamente necesarios para su propósito organizacional, deshabilitando cualquier elemento adicional.
+
+### Auditoría y desactivación de servicios
+
+Los sistemas operativos modernos, diseñados para abarcar desde entornos domésticos hasta servidores empresariales, inician por defecto multitud de servicios (como la compartición de recursos multimedia, servicios de geolocalización o colas de impresión remota) que resultan innecesarios en un equipo de trabajo asilado o en un servidor de bases de datos.
+
+Desde la perspectiva de la administración de sistemas, la auditoría y paralización de estos servicios reduce drásticamente los vectores de ataque. Este procedimiento se puede automatizar mediante la consola de comandos.
+
+```PowerShell
+# 1. Auditoría: Obtener un listado de todos los servicios del sistema que se encuentran actualmente en ejecución.
+Get-Service | Where-Object {$_.Status -eq "Running"}
+
+# 2. Intervención: Detener forzosamente un servicio específico que representa un riesgo innecesario (Ejemplo: Administrador de autenticación de Xbox Live).
+Stop-Service -Name XblAuthManager -Force
+
+# 3. Fortificación: Modificar el tipo de inicio del servicio para garantizar que no vuelva a ejecutarse tras el reinicio del sistema operativo.
+Set-Service -Name XblAuthManager -StartupType Disabled
+```
+
+## 4.2. Gestión de Parches y Vulnerabilidades
+
+Reducir la superficie de ataque desinstalando el software innecesario es vital, pero las aplicaciones y servicios que sí son obligatorios para el funcionamiento de la empresa pueden contener inherentemente defectos de programación.
+
+Los fabricantes de software publican actualizaciones periódicas para corregir estas brechas, pero en infraestructuras con cientos de equipos, la actualización manual no es viable. La administración de sistemas debe implementar un **ciclo de vida de gestión de parches** estructurado:
+
+1. **Monitorización y Detección:** Seguimiento continuo de los boletines de seguridad emitidos por los fabricantes y de la base de datos CVE (_Common Vulnerabilities and Exposures_), que estandariza la nomenclatura de las vulnerabilidades descubiertas a nivel mundial.
+    
+2. **Evaluación de Impacto:** Análisis técnico para determinar si los sistemas de la infraestructura local utilizan el software afectado y si la vulnerabilidad es explotable en el entorno específico de la organización.
+    
+3. **Prueba en Entorno de Desarrollo (Sandbox):** Todo parche de seguridad, especialmente aquellos calificados como críticos o de Día Cero (_Zero-Day_), debe instalarse primero en un entorno de pruebas aislado. La instalación directa en producción puede provocar incompatibilidades con el software corporativo (como aplicaciones heredadas o bases de datos) y paralizar la actividad de la empresa.
+    
+4. **Despliegue Controlado:** Distribución automatizada del parche a los equipos de producción mediante herramientas de administración centralizada (como WSUS en entornos Windows) o mediante el uso de _scripts_ de automatización.
+
+### Automatización mediante PowerShell
+
+Para equipos individuales o entornos que no disponen de un servidor WSUS, los administradores utilizan módulos específicos de PowerShell que permiten auditar e instalar actualizaciones del sistema operativo de forma desatendida.
+
+
+```PowerShell
+# Instalación del módulo oficial de gestión de actualizaciones.
+Install-Module -Name PSWindowsUpdate -Force
+
+# Auditoría: Consulta a los servidores del fabricante para obtener un listado de todos los parches de seguridad pendientes de instalación en el equipo.
+Get-WindowsUpdate
+
+# Despliegue: Descarga, instalación de todas las actualizaciones críticas pendientes y reinicio automático del sistema operativo en caso de ser requerido por el parche.
+Install-WindowsUpdate -AcceptAll -AutoReboot
+```
+
+>[!NOTE] Ejercicio 2.
+>Al realizar una auditoría de seguridad preventiva, se documenta la siguiente configuración actual del servidor:
+>
+>-El Firewall de Windows se encuentra desactivado "para evitar problemas de conectividad con la base de datos".
+>-El servicio de Cola de impresión se encuentra en ejecución.
+>-El administrador ha instalado un lector de archivos PDF y un navegador web de terceros en el servidor para poder leer manuales de configuración localmente.
+>-El puerto 3389 (Escritorio Remoto - RDP) está abierto y enrutado hacia Internet para que los técnicos puedan administrar el servidor desde sus domicilios sin necesidad de utilizar una VPN.
+>
+>A partir del escenario descrito, responded de forma técnica y justificada a las siguientes cuestiones:
+>
+>**1. Análisis de la Superficie de Ataque:** Identificad qué elementos de la configuración documentada violan el Principio de Mínima Funcionalidad. Explicad qué comando o acción técnica aplicaríais para remediarlo.
+>**2. Diseño de Defensa en Profundidad:** Suponiendo que un atacante logra robar las credenciales de Escritorio Remoto de uno de los técnicos y consigue entrar al sistema, ¿qué otras barreras debería haber implementado el departamento de sistemas para impedir que el atacante logre extraer, modificar o cifrar la base de datos de Recursos Humanos?
+
+## 4.3. Control de Acceso y Restricción de Ejecución
+
+Existe un vector de entrada que resulta imposible de eliminar mediante actualizaciones de _software_: la interacción del usuario. Si un empleado ejecuta inadvertidamente un archivo malicioso, la amenaza operará bajo el contexto de seguridad y los permisos de dicho usuario.
+
+Para mitigar este riesgo, la administración de sistemas aplica mecanismos de restricción de ejecución fundamentados en el **Principio de Mínimo Privilegio**. Este principio establece que un usuario o proceso debe poseer únicamente los permisos de acceso estrictamente necesarios para desempeñar sus funciones legítimas, y nada más.
+
+### Control de Cuentas de Usuario (UAC) y Gestión de Privilegios
+
+En los sistemas modernos, la separación de privilegios se gestiona estructuralmente mediante el Control de Cuentas de Usuario (UAC). Cuando un usuario con credenciales administrativas inicia sesión, el sistema le asigna dos _tokens_ de acceso: uno estándar y otro con privilegios elevados. Por defecto, todas las aplicaciones (incluido el _malware_) se ejecutan utilizando el _token_ estándar. Si un proceso requiere realizar cambios a nivel de sistema (como modificar el registro o instalar un servicio), UAC intercepta la solicitud y exige una confirmación explícita, bloqueando la elevación de privilegios silenciosa característica de los troyanos y _scripts_ maliciosos.
+
+A nivel organizativo, la fortificación exige auditar rigurosamente la pertenencia a los grupos administrativos locales, garantizando que los usuarios de producción operen siempre con cuentas estándar.
+
+```PowerShell
+# Auditoría: Comprobar qué usuarios pertenecen actualmente al grupo de Administradores locales del equipo.
+Get-LocalGroupMember -Group "Administradores"
+
+# Fortificación: Retirar a un usuario comprometido o innecesario del grupo de Administradores.
+Remove-LocalGroupMember -Group "Administradores" -Member "UsuarioEstandar"
+```
+
+### Restricción de Software mediante AppLocker
+
+Las amenazas lógicas de rápida propagación, como el _ransomware_ moderno o el _fileless malware_, suelen descargarse y ejecutarse desde directorios sobre los que el usuario estándar tiene permisos de escritura.
+
+Para evitar esto, se despliegan políticas de restricción de _software_, siendo **AppLocker** la herramienta nativa más potente en entornos corporativos Windows. AppLocker permite al administrador crear reglas de denegación o permiso (listas blancas y listas negras) basadas en tres condiciones:
+
+1. **Ruta:** Permite o bloquea la ejecución de archivos ubicados en carpetas específicas (ej. bloquear cualquier ejecutable en `%AppData%`).
+    
+2. **Editor:** Permite la ejecución únicamente si el programa está firmado digitalmente por un fabricante de confianza (ej. permitir solo aplicaciones firmadas por Microsoft o Adobe).
+    
+3. **Hash de archivo:** Bloquea la ejecución de un archivo concreto basándose en su huella criptográfica SHA-256, independientemente de cómo se llame o dónde esté ubicado.
+
+## 4.4. Auditoría de Sistemas y Trazabilidad
+
+La implementación de medidas de prevención y fortificación reduce drásticamente la probabilidad de una brecha de seguridad, pero la administración de sistemas asume que la invulnerabilidad total no existe. Cuando un ataque logra materializarse, o incluso cuando fracasa en el intento, el equipo de respuesta ante incidentes necesita disponer de un registro inmutable e histórico de todo lo ocurrido en la infraestructura. Este proceso se denomina **trazabilidad**.
+
+La auditoría de sistemas consiste en la configuración del sistema operativo para que registre de forma automática y silenciosa ciertos eventos críticos relacionados con la seguridad. En plataformas Windows, esta información se almacena y consulta a través del **Visor de Eventos** (_Event Viewer_), específicamente en el registro de _Seguridad_.
+
+### Configuración de Directivas de Auditoría
+
+Por defecto, los sistemas operativos no registran todas las acciones para evitar la saturación de los discos duros y el impacto en el rendimiento. En un proceso de _hardening_, el administrador debe habilitar mediante Directivas de Grupo (GPO) o políticas locales (`secpol.msc`) qué categorías de eventos deben ser auditadas. Las más críticas en seguridad activa son:
+
+- **Auditoría de sucesos de inicio de sesión:** Registra tanto los intentos exitosos (que pueden indicar un acceso en horarios anómalos o desde IPs externas) como los intentos fallidos (que delatan ataques de fuerza bruta contra las credenciales).
+    
+- **Auditoría de acceso a objetos:** Si se configura previamente el control de acceso en una carpeta crítica (por ejemplo, el directorio de nóminas o bases de datos), el sistema registrará qué usuario, desde qué proceso y en qué momento exacto intentó leer, modificar o eliminar un archivo. Esta es la principal contramedida forense para rastrear la actividad de un _ransomware_.
+    
+
+### Extracción y Análisis de Registros
+
+La revisión manual de miles de eventos en la interfaz gráfica del Visor de Eventos resulta ineficiente. En seguridad activa, se recurre a la consola de comandos para filtrar registros basándose en su ID de evento (EventID). Por ejemplo, en Windows, el **EventID 4625** representa un error de inicio de sesión.
+
+```PowerShell
+# Búsqueda Forense: Extraer los últimos 20 intentos fallidos de inicio de sesión en el equipo.
+# Esto permite detectar si se está produciendo un ataque de fuerza bruta en progreso.
+Get-WinEvent -FilterHashtable @{LogName='Security'; Id=4625} -MaxEvents 20 | Format-List TimeCreated, Message
+
+# Análisis de acceso a objetos: Buscar eventos de archivos modificados o eliminados (requiere auditoría de objetos habilitada, EventID 4663).
+Get-WinEvent -FilterHashtable @{LogName='Security'; Id=4663} -MaxEvents 10
+```
+
+# 5. Seguridad en redes y comunicaciones
+
+Hasta este punto, las estrategias de fortificación se han centrado en el _endpoint_, es decir, en asegurar el propio sistema operativo y sus servicios internos. Sin embargo, en una infraestructura corporativa, los equipos no operan de forma aislada. Intercambian información, consultan bases de datos y se sincronizan a través de la red local (LAN) y redes externas (WAN/Internet).
+
+## 5.1. Segmentación y Aislamiento de Redes
+
+El error de diseño más común y peligroso en infraestructuras de red tradicionales es la **red plana**, donde todos los dispositivos (servidores, ordenadores de empleados, impresoras e incluso dispositivos IoT) comparten el mismo segmento de red y tienen visibilidad directa entre sí. En este escenario, la propagación de un gusano informático o un _ransomware_ es inmediata.
+
+La seguridad activa requiere diseñar la red asumiendo la brecha. Se aplican técnicas de segmentación lógica mediante **VLANs** (Redes de Área Local Virtuales) para aislar los departamentos. De este modo, si la VLAN de "Administración" sufre una infección, el tráfico no puede saltar automáticamente a la VLAN de "Servidores de Producción" sin pasar por un enrutador o un cortafuegos interno que audite y bloquee esa anomalía.
+
+Para los servicios que deben ser accesibles desde el exterior (como un servidor web o de correo), se implementa una **DMZ** (Zona Desmilitarizada). La DMZ actúa como una subred aislada expuesta a Internet, pero con restricciones severas de acceso hacia la red corporativa interna.
+
+## 5.2. Criptografía y Protección de Datos en Tránsito
+
+Incluso segmentando la red, el tráfico que fluye entre dos puntos legítimos puede ser interceptado por un atacante interno mediante técnicas de _sniffing_ o ataques _Man-in-the-Middle_ (MitM). Para proteger la información en tránsito, la administración de sistemas recurre a la criptografía.
+
+El objetivo de la criptografía moderna no es solo ocultar la información, sino garantizar tres pilares: **Confidencialidad** (solo el receptor legítimo puede leerlo), **Integridad** (el mensaje no ha sido modificado) y **No repudio** (el emisor no puede negar haberlo enviado).
+
+### Cifrado Simétrico y Asimétrico
+
+- **Cifrado Simétrico:** Utiliza una única clave compartida tanto para cifrar como para descifrar la información (ej. AES). Es extremadamente rápido y eficiente para cifrar grandes volúmenes de datos (como un disco duro completo o un túnel VPN), pero presenta el problema de cómo distribuir esa clave secreta de forma segura a través de una red insegura.
+    
+- **Cifrado Asimétrico:** Utiliza un par de claves matemáticamente vinculadas: una **Clave Pública** (que se distribuye libremente a cualquiera) y una **Clave Privada** (que el propietario custodia en secreto y nunca comparte). Lo que se cifra con la clave pública de un usuario, **solo** puede descifrarse con su clave privada correspondiente. Este modelo (ej. RSA) soluciona el problema de distribución, pero requiere una alta capacidad de procesamiento computacional.
+
+Los protocolos seguros modernos, como **TLS/SSL** (utilizados en HTTPS o FTPS), combinan ambos modelos: utilizan el cifrado asimétrico inicialmente para intercambiar de forma segura una clave temporal, y luego cambian al cifrado simétrico para transmitir el grueso de los datos a alta velocidad.
+
+### Firmas y Certificados Digitales
+
+Mientras que el cifrado protege la confidencialidad, la **firma digital** garantiza la autenticidad y la integridad. Funciona invirtiendo el uso de las claves asimétricas:
+
+1. El emisor calcula el _hash_ (huella digital) del documento o mensaje.
+    
+2. El emisor cifra ese _hash_ utilizando su propia **Clave Privada**. Ese _hash_ cifrado es la firma digital.
+    
+3. El receptor descifra la firma utilizando la **Clave Pública** del emisor (confirmando así su identidad) y recalcula el _hash_ del documento. Si ambos _hashes_ coinciden, el archivo es íntegro y auténtico.
+
+Para evitar que un atacante suplante una clave pública (haciéndose pasar por el servidor legítimo), intervienen las **Autoridades de Certificación (CA)** dentro de una infraestructura PKI (_Public Key Infrastructure_). La CA actúa como un notario digital, emitiendo un **Certificado Digital** que vincula criptográficamente una clave pública con la identidad verificada de una empresa o servidor.
+
+### Gestión de Certificados en PowerShell
+
+En la administración de servidores, es habitual tener que generar certificados autofirmados para asegurar comunicaciones internas de prueba antes de adquirir un certificado comercial emitido por una CA.
+
+```PowerShell
+# Crear un certificado digital autofirmado para proteger el tráfico de un servidor web interno.
+# El certificado se almacena en el repositorio personal del equipo (Cert:\LocalMachine\My).
+$cert = New-SelfSignedCertificate -DnsName "intranet.centroeducativo.local" -CertStoreLocation "Cert:\LocalMachine\My"
+
+# Visualizar la huella digital (Thumbprint) y los detalles del certificado recién creado.
+Get-ChildItem -Path "Cert:\LocalMachine\My" | Where-Object {$_.Subject -match "intranet"} | Format-List Subject, Thumbprint, NotAfter
+
+# Exportar la Clave Pública (sin la clave privada) a un archivo .cer para distribuirla a los clientes de la red.
+Export-Certificate -Cert $cert -FilePath "C:\Admin\Intranet_Publica.cer"
+```
+
+## 5.3. Monitorización y Control de Flujo (Firewalls Avanzados)
+
+La última capa de la seguridad en redes es la inspección activa de los paquetes. Los cortafuegos tradicionales se limitaban a bloquear puertos estáticos (por ejemplo, cerrar el puerto 23 de Telnet). En el contexto de la seguridad activa, esto es insuficiente, ya que las amenazas modernas encapsulan su tráfico malicioso dentro de puertos legítimos y permitidos (como el puerto 443 de HTTPS).
+
+Para combatir esto, se despliegan **Firewalls de Nueva Generación (NGFW)**, que implementan tecnologías de inspección profunda de paquetes (DPI) y análisis de estado (_Stateful Inspection_). Estos dispositivos no solo miran a qué puerto va dirigido el tráfico, sino que analizan la aplicación real que lo está generando, permitiendo a la administración de sistemas crear reglas de control mucho más granulares y dinámicas, preparando el terreno para la automatización y el uso de sistemas de detección de intrusos.
+
+> [!NOTE] **Reflexión** 
+> Si todo el tráfico web de nuestra organización viaja cifrado de extremo a extremo mediante HTTPS (gracias a los certificados digitales), ¿cómo puede el cortafuegos de la empresa inspeccionar ese tráfico en busca de _malware_ sin romper la confidencialidad?

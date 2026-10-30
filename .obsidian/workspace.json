@@ -71,12 +71,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "SRI/UD 1/Unidad 3. Fundamentos de Servicios DNS..md",
+                "file": "SRI/UD 2/Unidad 2- DNS. Servicio de resolución de nombres.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Unidad 3. Fundamentos de Servicios DNS."
+              "title": "Unidad 2- DNS. Servicio de resolución de nombres"
             }
           },
           {
@@ -260,14 +260,17 @@
   },
   "active": "4a53035125e501d8",
   "lastOpenFiles": [
+    "Pasted image 20261030150723.png",
+    "Pasted image 20261030150624.png",
+    "Pasted image 20261030145641.png",
     "SRI/UD 1/Práctica 1. Despliegue de un Servidor DNS Primario.md",
-    "SRI/UD 1/Unidad 3. Fundamentos de Servicios DNS..md",
+    "SRI/UD 2/Unidad 2- DNS. Servicio de resolución de nombres.md",
     "SAD/UD 2/Unidad 2. Implantación de mecanismos de seguridad activa.md",
     "SAD/UD 2/Práctica. Simulación de infección por Ransomware.md",
     "SAD/UD 2/Práctica. Simulación de infección por Ransomware 1.md",
     "SAD/UD 1/Unidad 1. Principios de Seguridad Informática.md",
     "Sin nombre",
-    "SRI/UD 1",
+    "SRI/UD 2",
     "SRI",
     "SAD/UP 1/Sin título.md",
     "SAD/Sin nombre 1",
