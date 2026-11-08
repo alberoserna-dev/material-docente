@@ -259,3 +259,31 @@ Para comprender la interacción global de estos roles, analicemos el recorrido t
 >Abre la terminal de comandos y consulta los servidores externos que gestionan los millones de correos electrónicos de Gmail. Le preguntaremos al servidor recursivo de Google (8.8.8.8) para evitar bloqueos de nuestra red local: `nslookup -type=mx gmail.com 8.8.8.8`
 >
 >¿Cuál de todos ellos es el servidor principal que intentará recibir el correo primero? ¿Cómo se ordenan los de respaldo si el principal se cae?
+
+## 4. DNS Dinámico (DDNS)
+
+El DNS Dinámico (DDNS, por sus siglas en inglés) es una extensión operativa del sistema DNS tradicional diseñada para permitir la actualización en tiempo real de la dirección IP asociada a un nombre de dominio. Esta tecnología surge para dar respuesta a un problema muy común en entornos residenciales y de pequeñas empresas: las conexiones a Internet donde el Proveedor de Servicios (ISP) asigna direcciones IP públicas dinámicas que cambian periódicamente.
+
+El DNS tradicional asume que las direcciones IP de los servidores son estáticas, pero el DDNS flexibiliza esta arquitectura apoyándose en las siguientes características técnicas:
+
+- **Agente automatizado:** El sistema depende de un software cliente que funciona en segundo plano (frecuentemente integrado de fábrica en _routers_, servidores NAS o en los propios sistemas operativos). Este agente monitoriza de forma constante la IP pública de la red local y, si detecta cualquier variación, envía una notificación inmediata al servidor DNS autoritativo.
+    
+- **Actualizaciones en caliente (RFC 2136):** Utiliza un protocolo específico de actualización dinámica que permite modificar los registros de los archivos de zona "al vuelo". Esto elimina la necesidad de que un administrador edite manualmente los ficheros de texto o reinicie el servicio BIND9 para aplicar los cambios.
+    
+- **Valores TTL sumamente bajos:** Para evitar que los usuarios sean dirigidos a una dirección IP obsoleta tras un cambio repentino, los registros generados mediante DDNS se configuran con un _Time To Live_ muy corto (por ejemplo, 60 o 120 segundos). Esto fuerza a todos los servidores intermedios y cachés de Internet a descartar la información rápidamente y volver a preguntar.
+    
+- **Autenticación obligatoria:** Dado que permitir modificaciones automáticas en una zona es un riesgo grave de seguridad, las peticiones de actualización dinámica exigen autenticación criptográfica. Solo los clientes que posean la clave secreta o _token_ autorizado podrán alterar a dónde apunta el dominio.
+
+### Ejemplo de implementación práctica (Caso de uso VPN)
+
+Para ilustrar la utilidad operativa del DNS Dinámico, analicemos el despliegue de un servidor VPN en una oficina que carece de una conexión a Internet con IP estática:
+
+1. **Registro de la zona:** El administrador da de alta un subdominio específico (por ejemplo, `oficina.miempresa.com`) en un servidor DNS público que soporte actualizaciones dinámicas.
+    
+2. **Configuración del cliente:** En el _router_ de la oficina (o en el propio servidor VPN), se configura el cliente DDNS introduciendo el nombre del subdominio y el _token_ de seguridad criptográfica proporcionado por el servidor.
+    
+3. **El salto de IP:** Transcurridos unos días, el ISP renueva la concesión de red y la IP pública de la oficina cambia de forma imprevisible a, por ejemplo, `95.10.12.8`.
+    
+4. **Notificación automática:** En cuestión de segundos, el agente cliente detecta el cambio en la interfaz de red y envía un mensaje seguro al servidor DNS autoritativo: _"Actualiza el registro A de oficina.miempresa.com a la nueva IP 95.10.12.8"_.
+    
+5. **Resolución ininterrumpida:** El servidor DNS modifica el registro A en sus bases de datos en milisegundos. Cuando un empleado desde su casa intente conectar su cliente VPN hacia `oficina.miempresa.com`, la consulta DNS le entregará la nueva IP correcta, logrando que el salto de red haya sido completamente transparente para el usuario final.

@@ -198,7 +198,7 @@ A mayor cantidad de _software_ instalado, puertos abiertos y servicios ejecután
 
 ### Auditoría y desactivación de servicios
 
-Los sistemas operativos modernos, diseñados para abarcar desde entornos domésticos hasta servidores empresariales, inician por defecto multitud de servicios (como la compartición de recursos multimedia, servicios de geolocalización o colas de impresión remota) que resultan innecesarios en un equipo de trabajo asilado o en un servidor de bases de datos.
+Los sistemas operativos modernos, diseñados para abarcar desde entornos domésticos hasta servidores empresariales, inician por defecto multitud de servicios (como la compartición de recursos multimedia, servicios de geolocalización o colas de impresión remota) que resultan innecesarios en un equipo de trabajo aislado o en un servidor de bases de datos.
 
 Desde la perspectiva de la administración de sistemas, la auditoría y paralización de estos servicios reduce drásticamente los vectores de ataque. Este procedimiento se puede automatizar mediante la consola de comandos.
 
@@ -247,13 +247,17 @@ Install-WindowsUpdate -AcceptAll -AutoReboot
 >Al realizar una auditoría de seguridad preventiva, se documenta la siguiente configuración actual del servidor:
 >
 >-El Firewall de Windows se encuentra desactivado "para evitar problemas de conectividad con la base de datos".
+>
 >-El servicio de Cola de impresión se encuentra en ejecución.
+>
 >-El administrador ha instalado un lector de archivos PDF y un navegador web de terceros en el servidor para poder leer manuales de configuración localmente.
+>
 >-El puerto 3389 (Escritorio Remoto - RDP) está abierto y enrutado hacia Internet para que los técnicos puedan administrar el servidor desde sus domicilios sin necesidad de utilizar una VPN.
 >
 >A partir del escenario descrito, responded de forma técnica y justificada a las siguientes cuestiones:
 >
 >**1. Análisis de la Superficie de Ataque:** Identificad qué elementos de la configuración documentada violan el Principio de Mínima Funcionalidad. Explicad qué comando o acción técnica aplicaríais para remediarlo.
+>
 >**2. Diseño de Defensa en Profundidad:** Suponiendo que un atacante logra robar las credenciales de Escritorio Remoto de uno de los técnicos y consigue entrar al sistema, ¿qué otras barreras debería haber implementado el departamento de sistemas para impedir que el atacante logre extraer, modificar o cifrar la base de datos de Recursos Humanos?
 
 ## 4.3. Control de Acceso y Restricción de Ejecución
@@ -301,7 +305,6 @@ Por defecto, los sistemas operativos no registran todas las acciones para evitar
 - **Auditoría de sucesos de inicio de sesión:** Registra tanto los intentos exitosos (que pueden indicar un acceso en horarios anómalos o desde IPs externas) como los intentos fallidos (que delatan ataques de fuerza bruta contra las credenciales).
     
 - **Auditoría de acceso a objetos:** Si se configura previamente el control de acceso en una carpeta crítica (por ejemplo, el directorio de nóminas o bases de datos), el sistema registrará qué usuario, desde qué proceso y en qué momento exacto intentó leer, modificar o eliminar un archivo. Esta es la principal contramedida forense para rastrear la actividad de un _ransomware_.
-    
 
 ### Extracción y Análisis de Registros
 
@@ -347,9 +350,7 @@ Los protocolos seguros modernos, como **TLS/SSL** (utilizados en HTTPS o FTPS), 
 Mientras que el cifrado protege la confidencialidad, la **firma digital** garantiza la autenticidad y la integridad. Funciona invirtiendo el uso de las claves asimétricas:
 
 1. El emisor calcula el _hash_ (huella digital) del documento o mensaje.
-    
 2. El emisor cifra ese _hash_ utilizando su propia **Clave Privada**. Ese _hash_ cifrado es la firma digital.
-    
 3. El receptor descifra la firma utilizando la **Clave Pública** del emisor (confirmando así su identidad) y recalcula el _hash_ del documento. Si ambos _hashes_ coinciden, el archivo es íntegro y auténtico.
 
 Para evitar que un atacante suplante una clave pública (haciéndose pasar por el servidor legítimo), intervienen las **Autoridades de Certificación (CA)** dentro de una infraestructura PKI (_Public Key Infrastructure_). La CA actúa como un notario digital, emitiendo un **Certificado Digital** que vincula criptográficamente una clave pública con la identidad verificada de una empresa o servidor.
@@ -378,3 +379,104 @@ Para combatir esto, se despliegan **Firewalls de Nueva Generación (NGFW)**, que
 
 > [!NOTE] **Reflexión** 
 > Si todo el tráfico web de nuestra organización viaja cifrado de extremo a extremo mediante HTTPS (gracias a los certificados digitales), ¿cómo puede el cortafuegos de la empresa inspeccionar ese tráfico en busca de _malware_ sin romper la confidencialidad?
+
+# 6. Despliegue de sistemas IDS/IPS
+
+Si las políticas de control de acceso y los cortafuegos actúan como el control de pasaportes y los muros perimetrales de una infraestructura, los **Sistemas de Detección de Intrusos (IDS)** y los **Sistemas de Prevención de Intrusos (IPS)** constituyen las cámaras de seguridad y el personal de vigilancia interna.  
+
+Un cortafuegos de filtrado de paquetes convencional puede permitir el paso de tráfico por el puerto 80 (HTTP), asumiendo que es tráfico web legítimo. Sin embargo, no inspecciona qué viaja dentro de esa solicitud. Las amenazas modernas aprovechan precisamente estos puertos permitidos para inyectar comandos maliciosos, transferir _malware_ o realizar inyecciones SQL. Los sistemas IDS/IPS solucionan esta deficiencia aplicando **Inspección Profunda de Paquetes (DPI)**, evaluando la carga útil (_payload_) de la conexión en busca de comportamientos anómalos o firmas maliciosas.
+
+## 6.1. Diferencias Operativas: IDS frente a IPS
+
+Aunque ambos sistemas comparten los mismos motores de análisis y metodologías de detección, su arquitectura de implementación y su capacidad de respuesta son fundamentalmente distintas:
+
+- **IDS (Intrusion Detection System):** Opera de forma pasiva. Se despliega habitualmente conectado a un puerto de monitorización (puerto SPAN o _Port Mirroring_) en un _switch_ principal. El _switch_ envía una copia exacta de todo el tráfico de red al IDS. El sistema analiza los paquetes y, si detecta una amenaza, genera una alerta en el registro y notifica al administrador. **No interfiere con el tráfico real**. Su principal ventaja es que un fallo en el IDS no interrumpe la conectividad de la empresa; su desventaja es que no puede detener el ataque en tiempo real de forma autónoma.
+- **IPS (Intrusion Prevention System):** Opera de forma activa y en línea (_inline_). Todo el tráfico de red debe atravesar físicamente el IPS antes de llegar a su destino. Si detecta tráfico malicioso, además de generar la alerta, el IPS tiene autoridad para **descartar el paquete (Drop), cerrar la conexión o bloquear la dirección IP** del atacante de forma automática. Al ser un dispositivo de tránsito, un fallo de hardware en el IPS puede dejar inoperativa la red, por lo que requiere arquitecturas de alta disponibilidad (SAD).
+
+Así como YARA es el estándar de la industria para crear reglas orientadas a archivos, la sintaxis de **Snort** (adoptada también por **Suricata**) es el estándar universal para la creación de firmas de red en NIDS/IPS.
+
+**Suricata** es un sistema de detección de código abierto que puede actuar tanto como IDS como IPS. Su desarrollo corresponde a Open Information Security Foundation (OSIF). Utiliza un set de reglas y firmas que permite detectar y prevenir amenazas. Puede correr en Windows, Mac, Unix y Linux.
+
+![](https://raul-profesor.github.io/SAD/img/idps_7.webp)
+
+**Suricata vs Snort**
+
+Snort es el otro gran actor conocido en el juego de los IDS. También de código abierto, aunque posee dos sets de reglas principales: las community edition y las de suscriptor. Estas últimas son de pago y están desarrolladas, probadas y aprobadas por el grupo de seguridad de Cisco, Talos.
+
+![](https://raul-profesor.github.io/SAD/img/idps_8.png)
+
+En esencia, Suricata permite acciones por defecto (principalmente relacionadas con la funcionalidad de IPS), que Snort no. No obstante, con una serie de modificaciones es posible hacer que la funcionalidad de Snort pueda ser casi igual, sino igual, a la de Suricata.
+
+## 6.2. Tipología de despliegue: NIDS y HIDS
+
+La monitorización de la seguridad se clasifica según el entorno físico o lógico que se está auditando:
+
+- **NIDS (Network IDS):** Se ubican a nivel de infraestructura de red (como Suricata, Snort o Zeek). Monitorizan el tráfico en tránsito (_Data in Motion_). Son ideales para detectar escaneos de puertos, intentos de explotación remota o comunicación de _malware_ con servidores C2. Sin embargo, si el tráfico viaja cifrado mediante TLS/SSL y el NIDS no dispone de las claves de descifrado, su eficacia se reduce considerablemente.
+
+- **HIDS (Host IDS):** Se instalan directamente como agentes en los equipos finales y servidores (_endpoints_), como Wazuh u OSSEC. En lugar de monitorizar cables de red, analizan el interior del sistema operativo: cambios en el registro de Windows, integridad de archivos críticos (FIM - _File Integrity Monitoring_), ejecuciones de memoria anómalas y auditoría de _logs_ locales. Un HIDS puede detectar si un _ransomware_ está cifrando archivos en el disco duro de un servidor concreto, algo que un NIDS no vería si la infección entró mediante un USB.
+
+Una arquitectura de seguridad corporativa sólida exige el despliegue combinado de NIDS en los perímetros de las redes (VLANs, DMZ) y HIDS en los servidores críticos.
+
+## 6.3. Arquitectura de Prevención (IPS): Integración con Netfilter e iptables
+
+Para pasar al modo de contención activa, el motor de Suricata debe transicionar de un modo de escucha pasiva (IDS) a un modo de operación en línea (IPS). En sistemas operativos Linux, esta capacidad de interceptar y destruir paquetes en tiempo real se logra integrando Suricata con el cortafuegos nativo del sistema.
+
+### El ecosistema Netfilter y la cola NFQUEUE
+
+El núcleo (*kernel*) de Linux dispone de un *framework* llamado **Netfilter** encargado de gestionar el flujo de los paquetes de red. Los administradores interactúan con Netfilter mediante la herramienta **iptables**. 
+
+En una configuración de red estándar, cuando un paquete llega a la tarjeta de red, Netfilter lo procesa y lo entrega directamente a la aplicación de destino. Para convertir a Suricata en un IPS, debemos interrumpir este flujo directo. Para ello, utilizamos un objetivo especial de `iptables` llamado **NFQUEUE** (Netfilter Queue). 
+
+NFQUEUE actúa como una "sala de espera". En lugar de dejar pasar el paquete, el cortafuegos lo retiene en una cola de inspección y delega la decisión a una aplicación de espacio de usuario (en este caso, Suricata). Suricata analizará el paquete retenido aplicando sus reglas y emitirá un veredicto:
+*   **ACCEPT:** El paquete es benigno. Suricata avisa a Netfilter para que lo deje pasar hacia su destino.
+*   **DROP:** El paquete coincide con una firma maliciosa. Suricata ordena a Netfilter que lo destruya inmediatamente.
+
+### Comandos operativos para el despliegue de IPS en Linux
+
+Para aplicar esta arquitectura de prevención activa en un servidor, la administración de sistemas debe ejecutar tres pasos fundamentales mediante la consola de comandos:
+
+**1. Ejecutar el motor en modo Prevención:**
+A diferencia del modo IDS, donde Suricata "escucha" una interfaz de red concreta (usando el parámetro -i eth0), en modo IPS el motor debe conectarse a la cola de retención (usando el parámetro -q).
+```PowerShell
+sudo suricata -c /etc/suricata/suricata.yaml -q 0 -S /etc/suricata/rules/local.rules
+```
+
+**2. Desviar el tráfico a la cola de inspección:**
+Se debe insertar una regla en el cortafuegos que intercepte el tráfico y lo envíe a la cola de Netfilter (por defecto, la cola 0).
+```PowerShell
+# Insertar (-I) en la cadena de entrada (INPUT) una regla para desviar el tráfico al objetivo NFQUEUE (-j NFQUEUE)
+sudo iptables -I INPUT -j NFQUEUE
+```
+
+**3. Restaurar el tráfico (Limpieza de reglas):**
+Una vez finalizadas las tareas de seguridad activa o para realizar labores de mantenimiento, es fundamental eliminar la desviación a NFQUEUE para que el tráfico vuelva a fluir de forma estándar.
+```PowerShell
+sudo iptables -F
+```
+
+## 6.4. Sintaxis y Creación de Reglas (Estándar Snort/Suricata)
+
+Una regla de Snort/Suricata se divide estructuralmente en dos partes: la **Cabecera** (define la acción, el protocolo y el direccionamiento) y las **Opciones** (define la firma exacta que se busca dentro de la carga útil del paquete).
+
+
+```Plaintext
+# Estructura general de una regla Snort/Suricata
+# [Acción] [Protocolo] [IP Origen] [Puerto Origen] -> [IP Destino] [Puerto Destino] (Opciones)
+
+# Ejemplo 1: Regla IDS (Alerta) para detectar un escaneo masivo mediante ping (ICMP) desde la red externa.
+alert icmp $EXTERNAL_NET any -> $HOME_NET any (msg:"ALERTA: Escaneo de red ICMP (Ping) detectado"; sid:1000001; rev:1;)
+
+# Ejemplo 2: Regla IPS (Bloqueo) para interceptar un intento de acceso a un servidor web por SSH (anomalía de protocolo).
+drop tcp any any -> $HTTP_SERVERS 22 (msg:"BLOQUEO: Intento de conexión SSH a un servidor Web no autorizado"; sid:1000002; rev:1;)
+
+# Ejemplo 3: Regla de inspección profunda (DPI) para detectar tráfico web que intenta descargar un archivo ejecutable malicioso con un nombre específico.
+alert tcp $EXTERNAL_NET $HTTP_PORTS -> $HOME_NET any (msg:"ALERTA: Descarga de archivo ransomware_payload.exe detectada"; content:"ransomware_payload.exe"; nocase; sid:1000003; rev:2;)
+```
+
+**Análisis de las opciones clave en la sintaxis:**
+- `msg:` El mensaje de alerta que el sistema registrará en los _logs_ si la regla se dispara.
+- `content:` La cadena de texto, firma o secuencia hexadecimal exacta que el motor debe buscar dentro del paquete de red. Es el núcleo de la inspección profunda.
+- `nocase:` Indica que la búsqueda del _content_ no distingue entre mayúsculas y minúsculas.
+- `sid:` (_Snort ID_) Identificador único de la regla. Las reglas personalizadas por los administradores deben usar SIDs superiores a 1000000 para no entrar en conflicto con las reglas oficiales.
+- `rev:` Número de revisión. Indica cuántas veces se ha actualizado o modificado la regla.
+- `flags`: Permite inspeccionar las banderas de la cabecera TCP. Se utiliza para detectar comportamientos anómalos a nivel de conexión, como escaneos furtivos.
