@@ -83,28 +83,40 @@
             "id": "0fb856bfe36aa2fe",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "SAD/UD 2/Práctica. Simulación de infección por Ransomware.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "Práctica. Simulación de infección por Ransomware"
+              "title": "Nueva pestaña"
             }
           },
           {
             "id": "6593ad21697a177d",
             "type": "leaf",
+            "pinned": true,
             "state": {
               "type": "markdown",
               "state": {
-                "file": "SAD/UD 2/Unidad 2. Implantación de mecanismos de seguridad activa.md",
+                "file": "SRI/UD 2/Unidad 2- DNS. Servicio de resolución de nombres.md",
+                "mode": "source",
+                "source": false
+              },
+              "pinned": true,
+              "icon": "lucide-file",
+              "title": "Unidad 2- DNS. Servicio de resolución de nombres"
+            }
+          },
+          {
+            "id": "206aab37613907d2",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "SRI/UD 2/ÍNDICE.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Unidad 2. Implantación de mecanismos de seguridad activa"
+              "title": "ÍNDICE"
             }
           }
         ],
@@ -272,8 +284,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "0e78cb562d0f4a28",
+  "active": "6593ad21697a177d",
   "lastOpenFiles": [
+    "SRI/UD 2/ÍNDICE.md",
     "SRI/UD 2/Unidad 2- DNS. Servicio de resolución de nombres.md",
     "SAD/UD 2/Unidad 2. Implantación de mecanismos de seguridad activa.md",
     "Pasted image 20261030150723.png",
