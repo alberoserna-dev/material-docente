@@ -254,7 +254,7 @@ Para comprender la interacción global de estos roles, analicemos el recorrido t
     
 5. **Entrega y memorización:** El _resolver_ devuelve la IP obtenida a lo largo de toda la cadena de retorno hasta el PC del usuario, quedando el dato cacheado en los servidores intermedios para acelerar accesos posteriores.
 
->[!NOTE] Ejercicio 3
+>[!NOTE] Ejercicio 2
 >Abre la terminal de comandos y consulta los servidores externos que gestionan los millones de correos electrónicos de Gmail. Le preguntaremos al servidor recursivo de Google (8.8.8.8) para evitar bloqueos de nuestra red local: `nslookup -type=mx gmail.com 8.8.8.8`
 >
 >¿Cuál de todos ellos es el servidor principal que intentará recibir el correo primero? ¿Cómo se ordenan los de respaldo si el principal se cae?
@@ -298,7 +298,7 @@ zone "oficina.miempresa.com" {
 };
 ```
 
->[!NOTE] Ejercicio 4
+>[!NOTE] Ejercicio 3
 >Busca dos proveedores **del mundo de los videojuegos** que ofrezcan servicios de DNS Dinámico gratuitos para usuarios domésticos. ¿Qué limitaciones suelen tener las cuentas gratuitas en estos servicios respecto a la caducidad del dominio?
 
 ## 5. Seguridad en el servicio DNS
@@ -353,7 +353,7 @@ A un nivel superior, DNSSEC es una extensión del protocolo que añade firmas cr
 
 Para garantizar la correcta operativa de una infraestructura de red, no basta con configurar los servicios; el administrador debe ser capaz de auditar su comportamiento en tiempo real. La auditoría y el diagnóstico del tráfico DNS permiten verificar si las resoluciones se están ejecutando correctamente, identificar cuellos de botella y detectar anomalías de seguridad, como el tráfico originado por _malware_ o configuraciones erróneas que exponen la red.
 
->[!NOTE] Ejercicio 5
+>[!NOTE] Ejercicio 4
 >Partiendo de la siguiente configuración de un servidor DNS que estás auditando:
 >
 >zone "granempresa.com" {
@@ -362,14 +362,12 @@ Para garantizar la correcta operativa de una infraestructura de red, no basta co
  > 	  allow-transfer { any; };
 >};
 >
->¿Qué error de seguridad ha cometido el administrador en este bloque de código?
+>1. ¿Qué error de seguridad ha cometido el administrador en este bloque de código?
 >
-Si fueras un atacante utilizando herramientas como `dig` o `host`, ¿qué tipo de solicitud intentarías realizar contra este servidor?
->
-¿Qué información crítica podrías llegar a descargar en texto plano sin necesidad de romper ninguna contraseña?
+>2. Si fueras un atacante utilizando herramientas como `dig` o `host`, ¿qué tipo de solicitud intentarías realizar contra este servidor?
 
 
->[!NOTE] Ejercicio 6
+>[!NOTE] Ejercicio 5
 >Visualiza el siguiente video y debate acerca de las cuestiones que se plantean:
 >https://www.youtube.com/watch?v=QHKBFxhnz4s
 >
@@ -377,7 +375,11 @@ Si fueras un atacante utilizando herramientas como `dig` o `host`, ¿qué tipo d
 >
 >2. La cámara de vigilancia barata del salón de un usuario cualquiera fue el arma para tumbar a Twitter. ¿Debería haber una legislación que prohíba vender hardware de red con credenciales por defecto (admin/admin)?
 
+>[!NOTE] Ejercicio 6
+>Visualiza el siguiente video y debate acerca de las cuestiones que se plantean:
 https://www.youtube.com/watch?v=NmcmLaCvxGw
+>1. ¿Es la seguridad física más importante o más fiable que la ciberseguridad?
+>2. ¿Por qué la ICANN diseñó el sistema de tal manera que ninguna nación pueda tener el control único de estas llaves?
 ## 6. Alta Disponibilidad: Servidores Secundarios y Transferencia de Zonas
 
 Dado que el servicio DNS actúa como un recurso crítico para la infraestructura, la indisponibilidad del servidor de nombres implica que los equipos cliente perderán, a efectos prácticos, el acceso a los recursos de la red y a Internet. Para evitar este punto único de fallo, la arquitectura DNS exige el despliegue de alta disponibilidad mediante la implementación de, al menos, un servidor secundario de respaldo que asuma las peticiones si el principal cae.
@@ -424,7 +426,7 @@ zone "miempresa.com" {
 _(Nota: A diferencia del maestro, que guarda sus archivos en `/etc/bind/` (directorio de solo lectura), el esclavo debe guardar la zona descargada en un directorio donde el usuario del sistema `bind` tenga permisos de escritura, como suele ser `/var/cache/bind/` o `/var/lib/bind/`, dependiendo de la distribución)._
   
 
-> [!NOTE] Ejercicio 6
+> [!NOTE] Ejercicio 7
 > 
 > Un alumno ha configurado correctamente las directivas `allow-transfer` y `masters` en ambos servidores BIND9, y ha reiniciado ambos servicios. Sin embargo, al crear un nuevo registro tipo A (`intranet IN A 192.168.50.100`) en el servidor Maestro, comprueba con el comando `dig` que el servidor Esclavo sigue sin conocer la existencia de ese subdominio tras 30 minutos.
 > Sabiendo que no hay problemas de conectividad ni cortafuegos entre ellos:
@@ -483,7 +485,7 @@ Con esta configuración, le estamos diciendo a nuestro BIND9 local: _"Si no sabe
 
   
 
-> [!NOTE] Ejercicio 7
+> [!NOTE] Ejercicio 8
 > 
 > Un administrador ha configurado los `forwarders` en el archivo `/etc/bind/named.conf.options` de su servidor BIND9 local (cuya IP es `192.168.50.20`) para que envíe todas las peticiones externas al servidor `9.9.9.9` (Quad9). Tras reiniciar el servicio, quiere comprobar si realmente su servidor está delegando el trabajo.
 > 
@@ -526,7 +528,7 @@ La herramienta administrativa por excelencia para interactuar con el demonio de 
     ```
 
 
-> [!NOTE] Ejercicio 8
+> [!NOTE] Ejercicio 9
 > Una academia online con cientos de alumnos ha decidido migrar su plataforma web a un servidor más potente. El administrador del dominio ha cambiado el **Registro A** en el servidor maestro (autoritativo) para que apunte a la IP del nuevo servidor, pero los alumnos informan de un problema: algunos estudiantes ya ven la web nueva, mientras que otros siguen viendo la web antigua e inactiva.
 > 
 > Sabiendo cómo funciona el sistema de caché distribuido por los ISPs en Internet:
@@ -573,7 +575,7 @@ Al analizar tráfico DNS en Wireshark, el administrador debe fijarse en los sigu
     
 - **Texto Plano:** Por defecto, las peticiones DNS tradicionales no van cifradas, por lo que el nombre del dominio consultado (ej. `[www.google.com](https://www.google.com)`) y las IPs devueltas son perfectamente legibles en la captura de red, lo que subraya la necesidad de implementar medidas de seguridad en el servicio.
 
->[!NOTE] Ejercicio 9 
+>[!NOTE] Ejercicio 10
 > Mostrando el tráfico de la red interceptado por Wireshark, al lanzar desde la terminal la siguiente consulta de diagnóstico:
 > `nslookup www.gva.es 8.8.8.8`
 > 
