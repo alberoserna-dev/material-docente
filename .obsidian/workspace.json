@@ -78,37 +78,9 @@
               "icon": "lucide-file",
               "title": "Unidad 2. Implantación de mecanismos de seguridad activa"
             }
-          },
-          {
-            "id": "0fb856bfe36aa2fe",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "SAD/UD 2/Práctica. Simulación de infección por Ransomware.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Práctica. Simulación de infección por Ransomware"
-            }
-          },
-          {
-            "id": "6593ad21697a177d",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "SAD/UD 2/Unidad 2. Implantación de mecanismos de seguridad activa.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Unidad 2. Implantación de mecanismos de seguridad activa"
-            }
           }
         ],
-        "currentTab": 6
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -274,11 +246,13 @@
   },
   "active": "0e78cb562d0f4a28",
   "lastOpenFiles": [
-    "SRI/UD 2/Unidad 2- DNS. Servicio de resolución de nombres.md",
-    "SAD/UD 2/Unidad 2. Implantación de mecanismos de seguridad activa.md",
     "Pasted image 20261030150723.png",
     "Pasted image 20261030150624.png",
     "Pasted image 20261030145641.png",
+    "Pasted image 20260630125412.png",
+    "SAD/UD 2/Unidad 2. Implantación de mecanismos de seguridad activa.md",
+    "Rúbrica de Evaluación. Práctica 1 - Despliegue de un Servidor DNS Primario.md",
+    "SRI/UD 2/Unidad 2- DNS. Servicio de resolución de nombres.md",
     "SRI/UD 1/Práctica 1. Despliegue de un Servidor DNS Primario.md",
     "SAD/UD 2/Práctica. Simulación de infección por Ransomware.md",
     "SAD/UD 2/Práctica. Simulación de infección por Ransomware 1.md",
@@ -294,7 +268,6 @@
     "SAD/UD 1",
     "PARE/Enrutamiento Dinámico.md",
     "ADA/Tema 4/Tema 4. Mapeo objeto-relacional con Hibernate..md",
-    "Pasted image 20260630125412.png",
     "ADA/Tema 4/image1_ORM.png",
     "ADA/Tema 4/Gemini_Generated_Image_xjv4m8xjv4m8xjv4.png",
     "ADA/Tema 3/image1_StatementVsPrepared.jpg",
