@@ -29,8 +29,8 @@ Si conectamos directamente los servidores internos a un router con salida a Inte
 2. **Exfiltración de datos sin control:** Un malware instalado en un equipo interno puede establecer conexiones salientes hacia su servidor de Mando y Control (C2) o extraer gigabytes de información confidencial sin que ningún elemento intermedio inspeccione el flujo de salida.
 
 3. **Ausencia de visibilidad y trazabilidad:** Sin puntos de estrangulamiento (_chokepoints_) por donde pase obligatoriamente el tráfico entre zonas, resulta imposible aplicar políticas granulares o auditar qué equipo externo accedió a qué recurso interno.
-    
-![[Gemini_Generated_Image_sutw43sutw43sutw.jpeg]]
+
+![](Gemini_Generated_Image_sutw43sutw43sutw.jpeg)
 
 ### 1.2. Clasificación de zonas de riesgo según criterios de seguridad perimetral
 
@@ -123,8 +123,7 @@ En esta topología se emplea un **único cortafuegos** con al menos **tres inter
       |
       | (Interfaz WAN)
 +-----+-------------------+
-|  CORTAFUEGOS ÚNICO      +--- (Interfaz DMZ) ---> [ Servidores Públicos
-												(Web/Mail) ]
+|  CORTAFUEGOS ÚNICO      +--- (Interfaz DMZ) ---> [ Servidores Públicos (Web/Mail) ]
 +-----+-------------------+
       | (Interfaz LAN)
       v
@@ -180,8 +179,8 @@ Es el estándar de referencia en entornos corporativos medianos y grandes que re
         
     - **Rendimiento y visibilidad:** El cortafuegos exterior absorbe la carga bruta de Internet, mientras que el interior opera con baja latencia y registra cualquier intento anómalo de conexión desde la DMZ hacia la LAN.
         
-![[Gemini_Generated_Image_gqchsvgqchsvgqch.jpeg]]
 
+![](Gemini_Generated_Image_gqchsvgqchsvgqch.jpeg)
 ### 1.4. Comprobación práctica en Linux: Simulación de aislamiento y enrutamiento entre zonas
 
 En sistemas Linux que actúan como routers o cortafuegos perimetrales entre zonas, el aislamiento entre interfaces se controla a nivel de kernel mediante el parámetro `net.ipv4.ip_forward` y las cadenas de filtrado de Netfilter (`FORWARD` en `iptables` o `nftables`).
