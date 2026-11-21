@@ -19,7 +19,8 @@ Cuando una infraestructura empresarial se conecta a redes públicas o expone ser
 
 - **Interconexión de sedes y entornos híbridos (_Site-to-Site_ y _Cloud_):** Empresas con múltiples sucursales o que despliegan parte de su infraestructura en proveedores de nube pública (AWS, Azure, Google Cloud) y necesitan unir ambas redes como si formaran una única red local privada.
 
-#### Riesgos de una conexión directa sin defensa perimetral (Red Plana)
+
+**Riesgos de una conexión directa sin defensa perimetral (Red Plana)**
 
 Si conectamos directamente los servidores internos a un router con salida a Internet mediante simples redirecciones de puertos (_Port Forwarding / DNAT_) sin segmentación previa:
 
@@ -48,7 +49,7 @@ Para eliminar el peligro de las redes planas, la seguridad perimetral divide la 
          +------------------------------+------------------------------+
 ```
 
-#### 1. Zona Externa (WAN / _Untrusted Zone_)
+**1. Zona Externa (WAN / _Untrusted Zone_)**
 
 - **Definición:** Comprende todas las redes que escapan al control administrativo de la organización (Internet, redes de proveedores externos, redes Wi-Fi públicas o enlaces de invitados).
     
@@ -56,7 +57,7 @@ Para eliminar el peligro de las redes planas, la seguridad perimetral divide la 
     
 - **Política de acceso:** Todo tráfico entrante desde la zona externa hacia la red interna debe estar **bloqueado por defecto**. Únicamente se permite el acceso controlado hacia los servicios específicos alojados en la DMZ o hacia los puntos de terminación de túneles VPN autenticados.
 
-#### 2. Zona Desmilitarizada (DMZ / _Perimeter Network_)
+**2. Zona Desmilitarizada (DMZ / _Perimeter Network_)**
 
 - **Definición:** Es una subred física o lógica aislada que actúa como "tierra de nadie" o zona colchón (_buffer zone_) entre la red externa y la red interna. Su propósito es alojar todos aquellos servidores y servicios que deben ser accesibles desde Internet (servidores web, servidores de correo, DNS externos, proxies inversos o pasarelas VPN).
     
@@ -72,7 +73,7 @@ Para eliminar el peligro de las redes planas, la seguridad perimetral divide la 
         
     - **De DMZ a Externo:** **Bloqueado o altamente restringido**. Un servidor web de la DMZ no debería tener acceso libre para navegar por Internet; restringir el tráfico saliente impide que un malware descargue cargas útiles adicionales o establezca túneles reversos hacia servidores C2.
 
-#### 3. Zona Interna (LAN / _Trusted Zone_)
+**3. Zona Interna (LAN / _Trusted Zone_)**
 
 - **Definición:** Es el núcleo de la infraestructura corporativa donde residen los activos de mayor valor: servidores de bases de datos, controladores de dominio, servidores de ficheros, sistemas ERP/CRM, copias de seguridad y los puestos de trabajo de los empleados.
     
@@ -80,13 +81,13 @@ Para eliminar el peligro de las redes planas, la seguridad perimetral divide la 
     
 - **Política de acceso:** Invisible y completamente inaccesible de forma directa desde la red externa. Los usuarios internos acceden a Internet a través de sistemas intermediarios controlados (NAT con estado, cortafuegos con inspección de salida o servidores proxy).
 
-#### 4. Zona de Gestión (_Management Network_ / OOB - _Out-of-Band_)
+**4. Zona de Gestión (_Management Network_ / OOB - _Out-of-Band_)**
 
 - **Definición:** En infraestructuras críticas y centros de datos (CPD), se define una cuarta zona completamente aislada dedicada exclusivamente al tráfico administrativo: acceso SSH a servidores Linux, RDP a servidores Windows, interfaces de gestión de switches/firewalls y controladores hardware de servidor (iLO, iDRAC, IPMI).
     
 - **Política de acceso:** Solo es accesible desde las estaciones de trabajo de los administradores de sistemas o tras autenticarse mediante un servidor bastión (_Jump Host_) con autenticación multifactor.
 
-#### Matriz resumen de control de tráfico entre zonas
+**Matriz resumen de control de tráfico entre zonas**
 
 |**Origen \ Destino**|**Zona Externa (WAN)**|**DMZ**|**Zona Interna (LAN)**|**Zona Gestión**|
 |---|---|---|---|---|
@@ -99,13 +100,13 @@ Para eliminar el peligro de las redes planas, la seguridad perimetral divide la 
 
 Una vez definidas las zonas de riesgo, el administrador de sistemas debe decidir cómo interconectar físicamente los equipos de red (routers y cortafuegos) para materializar esa separación. En el diseño de seguridad perimetral existen cuatro arquitecturas clásicas, evolucionando desde modelos básicos hasta la topología estándar empresarial (_Screened Subnet_).
 
-#### A. Host de Doble Conexión (_Dual-Homed Host_) — Sin DMZ real
+**A. Host de Doble Conexión (_Dual-Homed Host_) — Sin DMZ real**
 
 Consiste en un único servidor o cortafuegos equipado con dos tarjetas de red (una conectada a la red externa y otra a la red interna) en el que se desactiva el reenvío automático de paquetes (_IP Forwarding_) a nivel de sistema operativo. Todo el tráfico debe pasar obligatoriamente por servicios proxy o aplicaciones instaladas en dicho equipo.
 
 - **Limitación:** Si el sistema operativo del _Dual-Homed Host_ sufre una vulnerabilidad o se habilita por error el enrutamiento, la red interna queda expuesta sin barreras adicionales.
 
-#### B. Cortafuegos de Subred Protegida con Un Solo Cortafuegos (Arquitectura Débil)
+**B. Cortafuegos de Subred Protegida con Un Solo Cortafuegos (Arquitectura Débil)**
 
 En esta topología se emplea un **único cortafuegos** con al menos **tres interfaces de red físicas o lógicas** (conocido habitualmente como cortafuegos de "tres patas" o _Three-Legged Firewall_):
 
@@ -140,7 +141,7 @@ En esta topología se emplea un **único cortafuegos** con al menos **tres inter
         
     3. **Tráfico no aislado físicamente:** Tanto el tráfico externo como el interno comparten la misma CPU y memoria del dispositivo; un ataque de Denegación de Servicio (DDoS) contra la DMZ puede saturar el cortafuegos y dejar sin salida a Internet ni comunicaciones internas a toda la empresa.
 
-#### C. Subred Protegida con Doble Cortafuegos (_Screened Subnet_ — Arquitectura Fuerte)
+**C. Subred Protegida con Doble Cortafuegos (_Screened Subnet_ — Arquitectura Fuerte)**
 
 Es el estándar de referencia en entornos corporativos medianos y grandes que requieren alta seguridad. En este diseño, la DMZ queda **físicamente encapsulada entre dos cortafuegos independientes** (preferiblemente de distinto fabricante para evitar que una misma vulnerabilidad afecte a ambos):
 
@@ -211,8 +212,6 @@ sudo iptables -A FORWARD -i eth1 -o eth2 -j DROP
 ```
 
 Este ejemplo de `FORWARD` nos sirve para relacionar el uso de `iptables` visto en la Unidad anterior con la configuración de pasarelas VPN que implementaremos en la futura práctica 3.1.
-
-### Actividad de Aula / Reflexión Guiada (Para trabajar en las sesiones 1-2)
 
 >[!NOTE] Ejercicio 1. 
 >Una empresa de comercio electrónico dispone de:

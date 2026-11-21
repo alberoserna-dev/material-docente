@@ -1,11 +1,11 @@
-# 1. Introducción a la seguridad activa.
+## 1. Introducción a la seguridad activa.
 En la unidad anterior se establecieron los fundamentos de la seguridad informática, centrando la atención en la prevención y en la construcción de una infraestructura resistente. Todas estas estrategias conforman lo que se denomina **seguridad pasiva o preventiva**.
 
 Sin embargo, la administración de sistemas moderna parte de una premisa ineludible en el ámbito corporativo: ninguna barrera es completamente infranqueable. Tarde o temprano, un atacante, un _software_ malicioso de nueva generación o un error humano lograrán sortear los controles preventivos. Es en este escenario cuando entra en juego la **seguridad activa**.
 
 La seguridad activa se define como el conjunto de medidas, herramientas y procedimientos dinámicos diseñados para detectar, interceptar y neutralizar una amenaza que ya se encuentra en curso o que ha logrado vulnerar el perímetro de la red. Mientras que la seguridad preventiva es estática (espera a que el ataque choque contra ella), la seguridad activa requiere monitorización constante, capacidad de análisis y mecanismos de respuesta inmediata.
 
-## 1.1. Diferencia entre medidas preventivas y medidas activas.
+### 1.1. Diferencia entre medidas preventivas y medidas activas.
 Para comprender plenamente este cambio de paradigma en la defensa de una infraestructura, es necesario contrastar ambos enfoques a través de sus características operativas:
 
 - **Naturaleza de la defensa:** La seguridad pasiva actúa _antes_ del incidente (por ejemplo, al configurar un cortafuegos para bloquear por defecto todo el tráfico no autorizado). Por el contrario, la seguridad activa actúa _durante y después_ del incidente (por ejemplo, un sistema que detecta un escaneo de puertos masivo en tiempo real y reconfigura las reglas para bloquear automáticamente la dirección IP de origen).
@@ -16,7 +16,7 @@ Para comprender plenamente este cambio de paradigma en la defensa de una infraes
 
 En un entorno empresarial real, ambos enfoques no son excluyentes, sino estrictamente complementarios. La seguridad pasiva reduce el volumen de ataques que llegan al interior de la red, permitiendo que las herramientas de seguridad activa se concentren únicamente en las amenazas más sofisticadas que logran infiltrarse.
 
-## 1.2. El ciclo de la defensa activa.
+### 1.2. El ciclo de la defensa activa.
 La implantación de mecanismos de seguridad activa no consiste únicamente en instalar _software_ de detección, sino en articular un procedimiento metodológico y estructurado para hacer frente a las intrusiones. Cuando una amenaza sortea las defensas iniciales de la organización, el equipo de administración debe ejecutar un ciclo de respuesta ante incidentes.
 
 Este ciclo de defensa técnica se divide en cuatro fases críticas y secuenciales:
@@ -29,12 +29,12 @@ Este ciclo de defensa técnica se divide en cuatro fases críticas y secuenciale
 | **3. Erradicación**                         | Con la amenaza debidamente contenida, se procede a localizar y eliminar la causa raíz del incidente. Esta fase incluye la eliminación definitiva de cualquier código malicioso, la desinstalación de herramientas de acceso remoto (_backdoors_) dejadas por el atacante, el cierre de los servicios utilizados como vía de entrada y la aplicación de parches de actualización urgentes para corregir la vulnerabilidad explotada.                                                                                                                                                  |
 | **4. Recuperación y Lecciones Aprendidas:** | La fase final consiste en devolver los sistemas afectados a su estado operativo normal y seguro, verificando mediante monitorización estricta que la amenaza ha desaparecido por completo. Esto puede requerir la restauración de bases de datos a partir de copias de seguridad íntegras o la reinstalación de máquinas desde imágenes de respaldo limpias. Tras la recuperación, se realiza una auditoría del incidente para identificar qué falló en la seguridad pasiva y activa, actualizando las políticas del sistema para evitar que un ataque similar vuelva a tener éxito. |
 
-# 2. Anatomía del ataque informático y amenazas lógicas
+## 2. Anatomía del ataque informático y amenazas lógicas
 Para que los mecanismos de seguridad activa resulten eficaces, el personal de administración de sistemas debe comprender en profundidad a qué se enfrenta. No es posible detectar, detener ni erradicar una amenaza si se desconoce su naturaleza o el comportamiento que sigue al infiltrarse en una red.
 
 Las **amenazas lógicas** son aquellas que operan a nivel de _software_ e información. Su objetivo principal es alterar el funcionamiento del sistema operativo, robar datos confidenciales, destruir registros o tomar el control remoto de los equipos, explotando para ello vulnerabilidades técnicas o descuidos humanos.
 
-## 2.1. Clasificación de las principales amenazas lógicas actuales.
+### 2.1. Clasificación de las principales amenazas lógicas actuales.
 El _software malicioso_ (conocido de forma general como _malware_) ha evolucionado enormemente. En un entorno corporativo, las tipologías más críticas que exigen monitorización activa son:
 
 - **Ransomware (Secuestro de datos):** Es, en la actualidad, una de las amenazas lógicas más destructivas para las empresas. Este código malicioso se introduce en el sistema y cifra de forma masiva los archivos, bases de datos e incluso los discos duros completos, utilizando algoritmos criptográficos fuertes. Posteriormente, los atacantes exigen el pago de un rescate (habitualmente en criptomonedas) a cambio de entregar la clave de descifrado. Además del secuestro técnico, las variantes modernas suelen practicar la doble extorsión: amenazar con publicar información confidencial en internet si no se realiza el pago.
@@ -59,7 +59,7 @@ El _software malicioso_ (conocido de forma general como _malware_) ha evoluciona
 
 - **Jokes (Programas de broma):** _Software_ inofensivo desde el punto de vista de la integridad de los datos, diseñado para simular un comportamiento malicioso o generar molestias operativas (como abrir reiteradamente la bandeja del lector de discos o mostrar ventanas emergentes imposibles de cerrar), reduciendo la productividad del usuario afectado.
 
-## 2.2. Las fases del ciberataque.
+### 2.2. Las fases del ciberataque.
 Un ataque informático exitoso contra una organización rara vez es un evento improvisado. Consiste en un proceso estructurado y secuencial. El modelo **Cyber Kill Chain** (Cadena de Muerte Cibernética), desarrollado originalmente por Lockheed Martin, describe las distintas fases que sigue un atacante.
 
 Comprender esta secuencia es vital en la seguridad activa: si los sistemas de detección logran identificar e interceptar la amenaza en cualquiera de las fases tempranas, la cadena se rompe y el ataque fracasa antes de alcanzar su objetivo final.
@@ -86,12 +86,12 @@ Comprender esta secuencia es vital en la seguridad activa: si los sistemas de de
 >Relacionad cada suceso (A, B, C, D, E) con su fase correspondiente dentro de la _Cyber Kill Chain_
 >  
 
-# 3. Análisis de malware y entornos de ejecución controlados.
+## 3. Análisis de malware y entornos de ejecución controlados.
 Una vez comprendida la anatomía de un ciberataque y las diferentes tipologías de _software_ malicioso, el siguiente paso en la estrategia de seguridad activa consiste en diseccionar estas amenazas. El análisis de _malware_ es el proceso de estudiar el comportamiento, el código y el impacto de un archivo sospechoso para descifrar su funcionamiento interno.
 
 Esta práctica resulta fundamental en la administración de sistemas, ya que permite a los equipos de seguridad identificar cómo se comunica el programa malicioso, qué vulnerabilidades intenta explotar y qué tipo de daños provoca. Con esta información, es posible crear reglas de detección precisas y diseñar contramedidas efectivas antes de que el ataque logre consolidarse en la infraestructura corporativa. Sin embargo, este proceso conlleva riesgos operativos extremos si no se realiza bajo unas condiciones tecnológicas muy estrictas.
 
-## 3.1. Peligros del análisis de _malware_ en equipos en producción.
+### 3.1. Peligros del análisis de _malware_ en equipos en producción.
 En el ámbito empresarial, se denomina "equipo en producción" a cualquier ordenador, servidor, base de datos o dispositivo que forma parte activa del entorno de trabajo diario de la organización y que se encuentra conectado a la red corporativa.
 
 Ejecutar, abrir o examinar _software_ malicioso directamente en este tipo de sistemas, incluso cuando se hace con fines de diagnóstico o estudio, constituye una negligencia crítica. Los peligros asociados a esta práctica imprudente incluyen:
@@ -107,7 +107,7 @@ Ejecutar, abrir o examinar _software_ malicioso directamente en este tipo de sis
 
 Por todas estas razones, el análisis de amenazas lógicas debe someterse a un protocolo de aislamiento absoluto. Ninguna prueba de seguridad activa debe llevarse a cabo si existe el más mínimo riesgo de que el código escape hacia la red principal de la organización.
 
-## 3.2. Diseño de laboratorios seguros: _Sandboxing_ y aislamiento mediante máquinas virtuales.
+### 3.2. Diseño de laboratorios seguros: _Sandboxing_ y aislamiento mediante máquinas virtuales.
 Para solventar los riesgos inherentes al análisis de _software_ malicioso, la administración de sistemas recurre a la creación de entornos de ejecución controlados. El objetivo de estos entornos es permitir que el código destructivo se ejecute libremente para poder observar su comportamiento, pero garantizando matemáticamente que sus efectos no puedan escapar hacia el sistema físico (el _host_) ni hacia la red corporativa.
 
 Para lograr este aislamiento, se emplean dos técnicas fundamentales:
@@ -121,7 +121,7 @@ Para lograr este aislamiento, se emplean dos técnicas fundamentales:
 - **Desactivación de integraciones:** Es imprescindible deshabilitar cualquier puente de comunicación entre la máquina física y la máquina virtual. Esto incluye, por ejemplo, desactivar las carpetas compartidas, el portapapeles bidireccional y la función de arrastrar y soltar archivos. Ya que ciertos tipos de _malware_ avanzado están diseñados para utilizar estas vías como ruta de escape.
     
 - **Uso de Instantáneas (_Snapshots_):** Antes de introducir y ejecutar el código malicioso, el administrador debe tomar una "instantánea" del estado limpio de la máquina virtual. Una vez concluido el análisis y extraída la información necesaria, se restaura la instantánea, lo que devuelve el sistema a su estado inmaculado de forma inmediata, erradicando por completo la infección sin necesidad de reinstalar el sistema operativo.
-## 3.3. Aplicaciones de detección de amenazas y creación de reglas de identificación.
+### 3.3. Aplicaciones de detección de amenazas y creación de reglas de identificación.
 Una vez que la amenaza ha sido ejecutada, contenida y analizada en el laboratorio seguro, el equipo de seguridad se enfrenta al siguiente reto: ¿cómo enseñamos al resto de la infraestructura de la empresa a detectar y bloquear este _software_ en el futuro?
 
 Como se vio en la unidad anterior, calcular la huella digital (el _hash_ SHA-256) de un archivo malicioso es útil, pero tiene una limitación crítica: si el creador del virus modifica un solo bit del código, el archivo generará un _hash_ completamente distinto y los sistemas de seguridad dejarán de detectarlo. Para solucionar este problema, se utilizan herramientas de identificación basadas en patrones.
@@ -186,17 +186,17 @@ Write-Host "Tus archivos han sido secuestrados. Se requiere clave para revertir 
 2. Al ejecutar de nuevo `./ataque.ps1`, el archivo original desaparecerá visualmente del escritorio y será sustituido por `nomina_direccion.txt.locked`.
 3. Al intentar abrir el nuevo archivo con el bloc de notas, el alumnado observará que el texto original ha sido destruido y reemplazado por una cadena de caracteres incomprensible.
 
-# 4. Fortificación del sistema (_Hardening_)
+## 4. Fortificación del sistema (_Hardening_)
 
 La fortificación consiste en el proceso sistemático de asegurar un sistema operativo, aplicación o infraestructura de red mediante la reducción de su exposición a posibles ciberataques. Se trata de una medida de seguridad activa, pero a la vez preventiva. Se asume que el sistema base, en su configuración por defecto, es vulnerable. El objetivo principal es establecer múltiples capas defensivas siguiendo el principio de **Defensa en Profundidad**, garantizando que si un atacante logra evadir un control de seguridad perimetral de los estudiados en la unidad 1, se enfrente inmediatamente a restricciones internas.
 
-## 4.1. Defensa en Profundidad y Superficie de Ataque
+### 4.1. Defensa en Profundidad y Superficie de Ataque
 
 Para comprender las técnicas de fortificación, es necesario definir previamente el concepto de **superficie de ataque**. Este término engloba la suma de todos los puntos de entrada, interfaces, servicios, protocolos y vulnerabilidades conocidas que un usuario malintencionado podría utilizar para introducir o extraer datos de un entorno corporativo.
 
 A mayor cantidad de _software_ instalado, puertos abiertos y servicios ejecutándose en segundo plano, mayor es la superficie de ataque. Por tanto, el primer pilar del _hardening_ es el **Principio de Mínima Funcionalidad**. Este principio establece que un sistema corporativo debe configurarse para ejecutar única y exclusivamente las aplicaciones y servicios estrictamente necesarios para su propósito organizacional, deshabilitando cualquier elemento adicional.
 
-### Auditoría y desactivación de servicios
+**Auditoría y desactivación de servicios**
 
 Los sistemas operativos modernos, diseñados para abarcar desde entornos domésticos hasta servidores empresariales, inician por defecto multitud de servicios (como la compartición de recursos multimedia, servicios de geolocalización o colas de impresión remota) que resultan innecesarios en un equipo de trabajo aislado o en un servidor de bases de datos.
 
@@ -213,7 +213,7 @@ Stop-Service -Name XblAuthManager -Force
 Set-Service -Name XblAuthManager -StartupType Disabled
 ```
 
-## 4.2. Gestión de Parches y Vulnerabilidades
+### 4.2. Gestión de Parches y Vulnerabilidades
 
 Reducir la superficie de ataque desinstalando el software innecesario es vital, pero las aplicaciones y servicios que sí son obligatorios para el funcionamiento de la empresa pueden contener inherentemente defectos de programación.
 
@@ -227,7 +227,7 @@ Los fabricantes de software publican actualizaciones periódicas para corregir e
     
 4. **Despliegue Controlado:** Distribución automatizada del parche a los equipos de producción mediante herramientas de administración centralizada (como WSUS en entornos Windows) o mediante el uso de _scripts_ de automatización.
 
-### Automatización mediante PowerShell
+**Automatización mediante PowerShell**
 
 Para equipos individuales o entornos que no disponen de un servidor WSUS, los administradores utilizan módulos específicos de PowerShell que permiten auditar e instalar actualizaciones del sistema operativo de forma desatendida.
 
@@ -260,13 +260,13 @@ Install-WindowsUpdate -AcceptAll -AutoReboot
 >
 >**2. Diseño de Defensa en Profundidad:** Suponiendo que un atacante logra robar las credenciales de Escritorio Remoto de uno de los técnicos y consigue entrar al sistema, ¿qué otras barreras debería haber implementado el departamento de sistemas para impedir que el atacante logre extraer, modificar o cifrar la base de datos de Recursos Humanos?
 
-## 4.3. Control de Acceso y Restricción de Ejecución
+### 4.3. Control de Acceso y Restricción de Ejecución
 
 Existe un vector de entrada que resulta imposible de eliminar mediante actualizaciones de _software_: la interacción del usuario. Si un empleado ejecuta inadvertidamente un archivo malicioso, la amenaza operará bajo el contexto de seguridad y los permisos de dicho usuario.
 
 Para mitigar este riesgo, la administración de sistemas aplica mecanismos de restricción de ejecución fundamentados en el **Principio de Mínimo Privilegio**. Este principio establece que un usuario o proceso debe poseer únicamente los permisos de acceso estrictamente necesarios para desempeñar sus funciones legítimas, y nada más.
 
-### Control de Cuentas de Usuario (UAC) y Gestión de Privilegios
+**Control de Cuentas de Usuario (UAC) y Gestión de Privilegios**
 
 En los sistemas modernos, la separación de privilegios se gestiona estructuralmente mediante el Control de Cuentas de Usuario (UAC). Cuando un usuario con credenciales administrativas inicia sesión, el sistema le asigna dos _tokens_ de acceso: uno estándar y otro con privilegios elevados. Por defecto, todas las aplicaciones (incluido el _malware_) se ejecutan utilizando el _token_ estándar. Si un proceso requiere realizar cambios a nivel de sistema (como modificar el registro o instalar un servicio), UAC intercepta la solicitud y exige una confirmación explícita, bloqueando la elevación de privilegios silenciosa característica de los troyanos y _scripts_ maliciosos.
 
@@ -280,7 +280,7 @@ Get-LocalGroupMember -Group "Administradores"
 Remove-LocalGroupMember -Group "Administradores" -Member "UsuarioEstandar"
 ```
 
-### Restricción de Software mediante AppLocker
+**Restricción de Software mediante AppLocker**
 
 Las amenazas lógicas de rápida propagación, como el _ransomware_ moderno o el _fileless malware_, suelen descargarse y ejecutarse desde directorios sobre los que el usuario estándar tiene permisos de escritura.
 
@@ -292,13 +292,13 @@ Para evitar esto, se despliegan políticas de restricción de _software_, siendo
     
 3. **Hash de archivo:** Bloquea la ejecución de un archivo concreto basándose en su huella criptográfica SHA-256, independientemente de cómo se llame o dónde esté ubicado.
 
-## 4.4. Auditoría de Sistemas y Trazabilidad
+### 4.4. Auditoría de Sistemas y Trazabilidad
 
 La implementación de medidas de prevención y fortificación reduce drásticamente la probabilidad de una brecha de seguridad, pero la administración de sistemas asume que la invulnerabilidad total no existe. Cuando un ataque logra materializarse, o incluso cuando fracasa en el intento, el equipo de respuesta ante incidentes necesita disponer de un registro inmutable e histórico de todo lo ocurrido en la infraestructura. Este proceso se denomina **trazabilidad**.
 
 La auditoría de sistemas consiste en la configuración del sistema operativo para que registre de forma automática y silenciosa ciertos eventos críticos relacionados con la seguridad. En plataformas Windows, esta información se almacena y consulta a través del **Visor de Eventos** (_Event Viewer_), específicamente en el registro de _Seguridad_.
 
-### Configuración de Directivas de Auditoría
+**Configuración de Directivas de Auditoría**
 
 Por defecto, los sistemas operativos no registran todas las acciones para evitar la saturación de los discos duros y el impacto en el rendimiento. En un proceso de _hardening_, el administrador debe habilitar mediante Directivas de Grupo (GPO) o políticas locales (`secpol.msc`) qué categorías de eventos deben ser auditadas. Las más críticas en seguridad activa son:
 
@@ -306,7 +306,7 @@ Por defecto, los sistemas operativos no registran todas las acciones para evitar
     
 - **Auditoría de acceso a objetos:** Si se configura previamente el control de acceso en una carpeta crítica (por ejemplo, el directorio de nóminas o bases de datos), el sistema registrará qué usuario, desde qué proceso y en qué momento exacto intentó leer, modificar o eliminar un archivo. Esta es la principal contramedida forense para rastrear la actividad de un _ransomware_.
 
-### Extracción y Análisis de Registros
+**Extracción y Análisis de Registros**
 
 La revisión manual de miles de eventos en la interfaz gráfica del Visor de Eventos resulta ineficiente. En seguridad activa, se recurre a la consola de comandos para filtrar registros basándose en su ID de evento (EventID). Por ejemplo, en Windows, el **EventID 4625** representa un error de inicio de sesión.
 
@@ -319,11 +319,11 @@ Get-WinEvent -FilterHashtable @{LogName='Security'; Id=4625} -MaxEvents 20 | For
 Get-WinEvent -FilterHashtable @{LogName='Security'; Id=4663} -MaxEvents 10
 ```
 
-# 5. Seguridad en redes y comunicaciones
+## 5. Seguridad en redes y comunicaciones
 
 Hasta este punto, las estrategias de fortificación se han centrado en el _endpoint_, es decir, en asegurar el propio sistema operativo y sus servicios internos. Sin embargo, en una infraestructura corporativa, los equipos no operan de forma aislada. Intercambian información, consultan bases de datos y se sincronizan a través de la red local (LAN) y redes externas (WAN/Internet).
 
-## 5.1. Segmentación y Aislamiento de Redes
+### 5.1. Segmentación y Aislamiento de Redes
 
 El error de diseño más común y peligroso en infraestructuras de red tradicionales es la **red plana**, donde todos los dispositivos (servidores, ordenadores de empleados, impresoras e incluso dispositivos IoT) comparten el mismo segmento de red y tienen visibilidad directa entre sí. En este escenario, la propagación de un gusano informático o un _ransomware_ es inmediata.
 
@@ -331,13 +331,13 @@ La seguridad activa requiere diseñar la red asumiendo la brecha. Se aplican té
 
 Para los servicios que deben ser accesibles desde el exterior (como un servidor web o de correo), se implementa una **DMZ** (Zona Desmilitarizada). La DMZ actúa como una subred aislada expuesta a Internet, pero con restricciones severas de acceso hacia la red corporativa interna.
 
-## 5.2. Criptografía y Protección de Datos en Tránsito
+### 5.2. Criptografía y Protección de Datos en Tránsito
 
 Incluso segmentando la red, el tráfico que fluye entre dos puntos legítimos puede ser interceptado por un atacante interno mediante técnicas de _sniffing_ o ataques _Man-in-the-Middle_ (MitM). Para proteger la información en tránsito, la administración de sistemas recurre a la criptografía.
 
 El objetivo de la criptografía moderna no es solo ocultar la información, sino garantizar tres pilares: **Confidencialidad** (solo el receptor legítimo puede leerlo), **Integridad** (el mensaje no ha sido modificado) y **No repudio** (el emisor no puede negar haberlo enviado).
 
-### Cifrado Simétrico y Asimétrico
+**Cifrado Simétrico y Asimétrico**
 
 - **Cifrado Simétrico:** Utiliza una única clave compartida tanto para cifrar como para descifrar la información (ej. AES). Es extremadamente rápido y eficiente para cifrar grandes volúmenes de datos (como un disco duro completo o un túnel VPN), pero presenta el problema de cómo distribuir esa clave secreta de forma segura a través de una red insegura.
     
@@ -345,7 +345,7 @@ El objetivo de la criptografía moderna no es solo ocultar la información, sino
 
 Los protocolos seguros modernos, como **TLS/SSL** (utilizados en HTTPS o FTPS), combinan ambos modelos: utilizan el cifrado asimétrico inicialmente para intercambiar de forma segura una clave temporal, y luego cambian al cifrado simétrico para transmitir el grueso de los datos a alta velocidad.
 
-### Firmas y Certificados Digitales
+**Firmas y Certificados Digitales**
 
 Mientras que el cifrado protege la confidencialidad, la **firma digital** garantiza la autenticidad y la integridad. Funciona invirtiendo el uso de las claves asimétricas:
 
@@ -355,7 +355,7 @@ Mientras que el cifrado protege la confidencialidad, la **firma digital** garant
 
 Para evitar que un atacante suplante una clave pública (haciéndose pasar por el servidor legítimo), intervienen las **Autoridades de Certificación (CA)** dentro de una infraestructura PKI (_Public Key Infrastructure_). La CA actúa como un notario digital, emitiendo un **Certificado Digital** que vincula criptográficamente una clave pública con la identidad verificada de una empresa o servidor.
 
-### Gestión de Certificados en PowerShell
+**Gestión de Certificados en PowerShell**
 
 En la administración de servidores, es habitual tener que generar certificados autofirmados para asegurar comunicaciones internas de prueba antes de adquirir un certificado comercial emitido por una CA.
 
@@ -371,22 +371,22 @@ Get-ChildItem -Path "Cert:\LocalMachine\My" | Where-Object {$_.Subject -match "i
 Export-Certificate -Cert $cert -FilePath "C:\Admin\Intranet_Publica.cer"
 ```
 
-## 5.3. Monitorización y Control de Flujo (Firewalls Avanzados)
+### 5.3. Monitorización y Control de Flujo (Firewalls Avanzados)
 
 La última capa de la seguridad en redes es la inspección activa de los paquetes. Los cortafuegos tradicionales se limitaban a bloquear puertos estáticos (por ejemplo, cerrar el puerto 23 de Telnet). En el contexto de la seguridad activa, esto es insuficiente, ya que las amenazas modernas encapsulan su tráfico malicioso dentro de puertos legítimos y permitidos (como el puerto 443 de HTTPS).
 
 Para combatir esto, se despliegan **Firewalls de Nueva Generación (NGFW)**, que implementan tecnologías de inspección profunda de paquetes (DPI) y análisis de estado (_Stateful Inspection_). Estos dispositivos no solo miran a qué puerto va dirigido el tráfico, sino que analizan la aplicación real que lo está generando, permitiendo a la administración de sistemas crear reglas de control mucho más granulares y dinámicas, preparando el terreno para la automatización y el uso de sistemas de detección de intrusos.
 
-> [!NOTE] **Reflexión** 
+> [!NOTE] Reflexión 
 > Si todo el tráfico web de nuestra organización viaja cifrado de extremo a extremo mediante HTTPS (gracias a los certificados digitales), ¿cómo puede el cortafuegos de la empresa inspeccionar ese tráfico en busca de _malware_ sin romper la confidencialidad?
 
-# 6. Despliegue de sistemas IDS/IPS
+## 6. Despliegue de sistemas IDS/IPS
 
 Si las políticas de control de acceso y los cortafuegos actúan como el control de pasaportes y los muros perimetrales de una infraestructura, los **Sistemas de Detección de Intrusos (IDS)** y los **Sistemas de Prevención de Intrusos (IPS)** constituyen las cámaras de seguridad y el personal de vigilancia interna.  
 
 Un cortafuegos de filtrado de paquetes convencional puede permitir el paso de tráfico por el puerto 80 (HTTP), asumiendo que es tráfico web legítimo. Sin embargo, no inspecciona qué viaja dentro de esa solicitud. Las amenazas modernas aprovechan precisamente estos puertos permitidos para inyectar comandos maliciosos, transferir _malware_ o realizar inyecciones SQL. Los sistemas IDS/IPS solucionan esta deficiencia aplicando **Inspección Profunda de Paquetes (DPI)**, evaluando la carga útil (_payload_) de la conexión en busca de comportamientos anómalos o firmas maliciosas.
 
-## 6.1. Diferencias Operativas: IDS frente a IPS
+### 6.1. Diferencias Operativas: IDS frente a IPS
 
 Aunque ambos sistemas comparten los mismos motores de análisis y metodologías de detección, su arquitectura de implementación y su capacidad de respuesta son fundamentalmente distintas:
 
@@ -407,7 +407,7 @@ Snort es el otro gran actor conocido en el juego de los IDS. También de código
 
 En esencia, Suricata permite acciones por defecto (principalmente relacionadas con la funcionalidad de IPS), que Snort no. No obstante, con una serie de modificaciones es posible hacer que la funcionalidad de Snort pueda ser casi igual, sino igual, a la de Suricata.
 
-## 6.2. Tipología de despliegue: NIDS y HIDS
+### 6.2. Tipología de despliegue: NIDS y HIDS
 
 La monitorización de la seguridad se clasifica según el entorno físico o lógico que se está auditando:
 
@@ -417,11 +417,11 @@ La monitorización de la seguridad se clasifica según el entorno físico o lóg
 
 Una arquitectura de seguridad corporativa sólida exige el despliegue combinado de NIDS en los perímetros de las redes (VLANs, DMZ) y HIDS en los servidores críticos.
 
-## 6.3. Arquitectura de Prevención (IPS): Integración con Netfilter e iptables
+### 6.3. Arquitectura de Prevención (IPS): Integración con Netfilter e iptables
 
 Para pasar al modo de contención activa, el motor de Suricata debe transicionar de un modo de escucha pasiva (IDS) a un modo de operación en línea (IPS). En sistemas operativos Linux, esta capacidad de interceptar y destruir paquetes en tiempo real se logra integrando Suricata con el cortafuegos nativo del sistema.
 
-### El ecosistema Netfilter y la cola NFQUEUE
+**El ecosistema Netfilter y la cola NFQUEUE**
 
 El núcleo (*kernel*) de Linux dispone de un *framework* llamado **Netfilter** encargado de gestionar el flujo de los paquetes de red. Los administradores interactúan con Netfilter mediante la herramienta **iptables**. 
 
@@ -431,7 +431,7 @@ NFQUEUE actúa como una "sala de espera". En lugar de dejar pasar el paquete, el
 *   **ACCEPT:** El paquete es benigno. Suricata avisa a Netfilter para que lo deje pasar hacia su destino.
 *   **DROP:** El paquete coincide con una firma maliciosa. Suricata ordena a Netfilter que lo destruya inmediatamente.
 
-### Comandos operativos para el despliegue de IPS en Linux
+**Comandos operativos para el despliegue de IPS en Linux**
 
 Para aplicar esta arquitectura de prevención activa en un servidor, la administración de sistemas debe ejecutar tres pasos fundamentales mediante la consola de comandos:
 
@@ -454,7 +454,7 @@ Una vez finalizadas las tareas de seguridad activa o para realizar labores de ma
 sudo iptables -F
 ```
 
-## 6.4. Sintaxis y Creación de Reglas (Estándar Snort/Suricata)
+### 6.4. Sintaxis y Creación de Reglas (Estándar Snort/Suricata)
 
 Una regla de Snort/Suricata se divide estructuralmente en dos partes: la **Cabecera** (define la acción, el protocolo y el direccionamiento) y las **Opciones** (define la firma exacta que se busca dentro de la carga útil del paquete).
 

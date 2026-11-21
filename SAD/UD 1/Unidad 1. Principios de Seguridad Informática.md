@@ -1,11 +1,11 @@
-# 1. Seguridad informática: concepto y necesidad
+## 1. Seguridad informática: concepto y necesidad
 Actualmente, existe una realidad inmutable en la sociedad en general y en el sector empresarial en particular: el hardware es reemplazable, pero la información no. Si el centro de datos de una organización se incendia, las máquinas se pueden volver a comprar; sin embargo, si se pierde la base de datos de clientes, las configuraciones críticas o los historiales financieros, la empresa simplemente desaparece.
 
 La seguridad informática nace exactamente para proteger esa supervivencia. Asegurar un sistema no consiste únicamente en frenar a un ciberataque puntual. Un plan de seguridad debe blindarnos también contra el empleado que borra una carpeta sin querer, contra un corte de luz repentino o la pérdida repentina de un disco duro.
 
 La premisa fundamental de esta profesión es que **la seguridad absoluta es una utopía**. Nuestro trabajo no es crear sistemas mágicos imposibles de atacar, sino diseñar arquitecturas donde los riesgos estén calculados, las brechas se detecten de inmediato y exista capacidad de recuperación.
 
-## 1.1. Las cuatro reglas fundamentales
+### 1.1. Las cuatro reglas fundamentales
 La solidez de cualquier infraestructura tecnológica se fundamenta en el cumplimiento de cuatro atributos esenciales:
 
 - **Confidencialidad:** Significa levantar muros para que nadie vea lo que no debe. Si un intruso o un empleado sin los permisos adecuados logra leer un documento reservado, este principio se ha roto.
@@ -15,7 +15,7 @@ La solidez de cualquier infraestructura tecnológica se fundamenta en el cumplim
 
 Estos principios mantienen una estrecha interrelación. A modo de ejemplo, el despliegue de mecanismos de control de acceso contribuye simultáneamente a preservar la confidencialidad y la integridad, mientras que el diseño de infraestructuras redundantes o el uso de copias de seguridad inciden de manera directa en la disponibilidad.
 
-### Alta disponibilidad y categorización del servicio
+**Alta disponibilidad y categorización del servicio**
 
 El concepto de Alta Disponibilidad hace referencia a la capacidad de una arquitectura tecnológica para permanecer operativa de manera ininterrumpida, minimizando al máximo los tiempos de inactividad frente a posibles fallos. La disponibilidad de un servicio se clasifica de manera porcentual en distintas categorías:
 
@@ -25,7 +25,8 @@ El concepto de Alta Disponibilidad hace referencia a la capacidad de una arquite
 - **Muy alta:** Entre el 99 % y el 99,9 %.
 - **Crítica:** Superior al 99,9 %.
 
-### Métricas para la evaluación de la disponibilidad
+**Métricas para la evaluación de la disponibilidad**
+
 Para evaluar el rendimiento de los sistemas y planificar su mantenimiento, se emplean diversas métricas estandarizadas:
 
 - **MTBF (Tiempo Medio Entre Fallos):** Aplicable a sistemas reparables, indica el promedio de tiempo que el equipo funciona correctamente entre una incidencia y la siguiente. Cuanto mayor es su valor, mayor es la fiabilidad del activo.
@@ -55,16 +56,16 @@ A partir de estos indicadores, es posible cuantificar la disponibilidad real med
 - **Para componentes no reparables:** 
 	`Disponibilidad = MTTF / (MTTF + MTTR)`
 
-## 1.2. La paradoja de la seguridad y el compromiso operativo
+### 1.2. La paradoja de la seguridad y el compromiso operativo
 
 Incrementar la seguridad de un sistema informático suele requerir la introducción de nuevos controles, pasos adicionales y restricciones. Sin embargo, si estas medidas se aplican de forma desproporcionada o sin criterio, el sistema puede resultar incómodo de manejar o incluso perder parte de su funcionalidad original. Por este motivo, una buena administración de sistemas consiste en encontrar el equilibrio adecuado entre la seguridad, la funcionalidad y la facilidad de uso.
 
 Un ejemplo claro de esta situación ocurre con las políticas de contraseñas. Si el sistema obliga a los usuarios a crear claves excesivamente largas y a cambiarlas con mucha frecuencia, el resultado suele ser contraproducente. Para evitar olvidar las contraseñas, las personas terminan anotándolas en papeles visibles o utilizando patrones fáciles de adivinar. De este modo, aunque la medida técnica exista, el comportamiento que provoca acaba reduciendo la protección real de la empresa.
 
-# 2. Vulnerabilidades, amenazas, ataques y riesgos
+## 2. Vulnerabilidades, amenazas, ataques y riesgos
 
 Para gestionar correctamente la seguridad de una infraestructura, es imprescindible comprender las diferencias exactas entre los factores que la ponen en peligro.
-## 2.1. Vulnerabilidad
+### 2.1. Vulnerabilidad
 
 Una vulnerabilidad es cualquier debilidad, fallo o deficiencia presente en un sistema que podría facilitar la aparición de un incidente de seguridad. La simple existencia de un punto débil no implica que el sistema esté siendo atacado en ese momento, sino que existe una puerta abierta que alguien o algo podría aprovechar. Estas brechas pueden aparecer en diferentes niveles:
 
@@ -76,7 +77,7 @@ Una vulnerabilidad es cualquier debilidad, fallo o deficiencia presente en un si
 
 - **Vulnerabilidades de red:** Surgen por configuraciones deficientes, como mantener puertos abiertos sin justificación, emplear protocolos de transmisión de datos sin cifrar (como HTTP o Telnet), utilizar redes inalámbricas con protección débil o carecer de una correcta segmentación que separe los equipos críticos del resto de la red.
 
-### Análisis y detección de vulnerabilidades
+**Análisis y detección de vulnerabilidades**
 
 El análisis de vulnerabilidades es el procedimiento utilizado para localizar y clasificar estas debilidades antes de que ocasionen un problema. Este trabajo se apoya en revisiones manuales y en el uso de herramientas de software especializadas que automatizan la búsqueda de fallos:
 
@@ -88,7 +89,7 @@ El análisis de vulnerabilidades es el procedimiento utilizado para localizar y 
 | **Lynis**               | Auditoría interna del sistema   | Análisis profundo en entornos Linux/Unix para proponer mejoras de fortificación (_hardening_) en la configuración del equipo. |
 | **OpenSCAP**            | Auditoría de normativas         | Comprobación automatizada para verificar si un sistema cumple con políticas o estándares de seguridad específicos.            |
 
-## 2.2. Conceptos de amenaza, ataque y riesgo
+### 2.2. Conceptos de amenaza, ataque y riesgo
 
 Aunque a menudo se confunden, es necesario distinguir tres términos fundamentales en la gestión de incidentes:
 
@@ -107,7 +108,7 @@ La evolución habitual de un incidente sigue esta secuencia lógica: **Activo** 
 |Un equipo conectado directamente a la red sin protección eléctrica.|Un corte o pico de tensión en el suministro eléctrico.|
 |Ausencia de cerraduras o control de acceso en la sala de servidores.|El acceso físico de un intruso para robar o dañar el equipo.|
 
-## 2.3. Tipología de amenazas: físicas y lógicas
+### 2.3. Tipología de amenazas: físicas y lógicas
 
 Las amenazas se dividen en dos grandes grupos según la naturaleza del daño que provocan:
 
@@ -115,7 +116,7 @@ Las amenazas se dividen en dos grandes grupos según la naturaleza del daño que
     
 - **Amenazas lógicas:** Actúan a nivel de software e información. Comprenden el _malware_, el secuestro de datos (_ransomware_), las intrusiones no autorizadas, la explotación de código y los ataques orientados a colapsar un servicio.
 
-### Ingeniería social y fraude informático
+**Ingeniería social y fraude informático**
 
 La ingeniería social es un conjunto de técnicas que no ataca a la tecnología, sino al factor humano. Se basa en la manipulación psicológica para lograr que un usuario entregue sus credenciales, instale software malicioso o revele información confidencial de forma voluntaria.
 
@@ -137,11 +138,11 @@ Las técnicas de manipulación más habituales incluyen:
 
 La defensa contra estas prácticas requiere medidas preventivas enfocadas en el personal y en los procesos, tales como la formación continua, la verificación de operaciones críticas a través de vías alternativas, la adopción del múltiple factor de autenticación (MFA) y la creación de un entorno seguro para que los empleados reporten sospechas sin temor a ser penalizados.
 
-# 3. Seguridad física y del entorno
+## 3. Seguridad física y del entorno
 
 Es un error frecuente suponer que una infraestructura tecnológica está a salvo simplemente por contar con barreras de software, como cortafuegos o programas antivirus. Si una persona sin autorización logra acceder al recinto donde se alojan los servidores y desconecta un cable o extrae un disco duro, todas las defensas lógicas quedan anuladas al instante. Por ello, la seguridad física se encarga de proteger el hardware y los soportes de almacenamiento frente a daños materiales, factores climáticos adversos y accesos no permitidos.
 
-## 3.1. Control de accesos y ubicación de los equipos
+### 3.1. Control de accesos y ubicación de los equipos
 
 Para garantizar la integridad física de los sistemas críticos, estos deben situarse obligatoriamente en áreas de acceso restringido. Las medidas fundamentales incluyen:
 
@@ -153,7 +154,7 @@ Para garantizar la integridad física de los sistemas críticos, estos deben sit
     
 - **Separación de respaldos:** Como medida de precaución básica, los soportes que contienen las copias de seguridad deben almacenarse en una ubicación física distinta a la del sistema original que protegen.
 
-## 3.2. Respaldo eléctrico: Sistemas de Alimentación Ininterrumpida (SAI)
+### 3.2. Respaldo eléctrico: Sistemas de Alimentación Ininterrumpida (SAI)
 
 Las anomalías en el suministro eléctrico representan una amenaza constante. Un Sistema de Alimentación Ininterrumpida (SAI, o UPS por sus siglas en inglés) es un equipo diseñado para proporcionar energía de forma temporal cuando se produce un corte en la red eléctrica, además de estabilizar posibles alteraciones del flujo.
 
@@ -169,25 +170,25 @@ A nivel interno, un SAI se compone de tres piezas clave:
 
 Al implementar un SAI en un entorno profesional, el administrador debe evaluar características técnicas como la potencia total que puede soportar, la autonomía de las baterías, la topología del equipo (existen modelos _Offline_, _Online_ e _Interactivos_, que varían en su forma de filtrar picos de corriente) y su capacidad para comunicarse por red con los servidores.
 
-## 3.3. Acondicionamiento ambiental
+### 3.3. Acondicionamiento ambiental
 
 Las salas técnicas y los centros de proceso de datos (CPD) exigen un control exhaustivo de su entorno físico para prevenir el deterioro de los componentes. Los equipos deben ubicarse en zonas libres de polvo, impactos, humedad excesiva o altas temperaturas.
 
 Para lograrlo, las instalaciones deben contar con sistemas avanzados de climatización y ventilación. Además, es crítico desplegar sensores de inundación y mecanismos de protección contra el fuego, lo que incluye detectores de humo de muy alta sensibilidad combinados con sistemas de extinción automática (como rociadores de gas especializado) y extintores manuales adecuados para material electrónico.
 
-# 4. Seguridad Lógica
+## 4. Seguridad Lógica
 
 La seguridad lógica engloba todos los mecanismos técnicos orientados a controlar y restringir el acceso a la información, las redes y las aplicaciones. Esta rama de la seguridad hace uso de herramientas como los procesos de autenticación, la asignación de permisos, el cifrado de datos, el uso de cortafuegos y la gestión de copias de seguridad.
 
-## 4.1. El principio de mínimo privilegio
+### 4.1. El principio de mínimo privilegio
 
 Una regla fundamental en la administración de sistemas es que cada usuario, proceso o servicio debe contar única y exclusivamente con los permisos estrictamente necesarios para desempeñar su función. Al reducir los privilegios al nivel más bajo posible, se acota de forma considerable el daño que podría ocasionar un error humano, la vulneración de una cuenta o la ejecución de un software malicioso.
 
-## 4.2. Criptografía y protección de la información
+### 4.2. Criptografía y protección de la información
 
 La criptografía recurre a algoritmos matemáticos para transformar los datos y protegerlos, garantizando propiedades clave como la confidencialidad y la integridad tanto durante su almacenamiento como en su transmisión. Para asegurar información crítica, como documentos o credenciales, se emplean principalmente dos mecanismos diferenciados: las funciones hash y los algoritmos de cifrado.
 
-### Funciones Hash y verificación de integridad
+**Funciones Hash y verificación de integridad**
 
 Una función hash es un proceso matemático que toma un archivo o conjunto de datos de cualquier tamaño y devuelve una cadena de texto de longitud fija, conocida como resumen o huella digital.
 
@@ -205,7 +206,7 @@ Históricamente se utilizaron algoritmos como MD5 o SHA-1, pero en la actualidad
 
 **Aplicación práctica en sistemas Linux:** El comando `sha256sum archivo.txt` permite obtener la huella digital de un fichero. Si tiempo después se vuelve a calcular y el resultado es idéntico, queda garantizado que el documento no ha sufrido alteraciones. Cabe destacar que el hash certifica la integridad de los datos, pero no oculta su contenido; por tanto, no aporta confidencialidad.
 
-### Cifrado de datos
+**Cifrado de datos**
 
 El cifrado transforma información legible (texto en claro) en un formato incomprensible (texto cifrado) mediante el uso de un algoritmo y una clave. A diferencia de las funciones hash, el cifrado es un proceso reversible: el destinatario puede recuperar la información original si dispone de la clave adecuada para el descifrado. Su propósito principal es asegurar la confidencialidad.
 
@@ -226,7 +227,7 @@ Existen dos modalidades principales:
 |**Reversibilidad**|No es reversible|Es reversible con la clave correcta|
 |**Ejemplo de tecnología**|SHA-256|GPG|
 
-### Sistemas híbridos y estados de la información
+**Sistemas híbridos y estados de la información**
 
 En escenarios reales, es habitual combinar ambas técnicas de cifrado. Protocolos fundamentales como TLS (utilizado para asegurar el tráfico web) emplean criptografía asimétrica para intercambiar las contraseñas de forma segura y, posteriormente, pasan a usar criptografía simétrica para transmitir toda la información de la sesión con mayor fluidez.
 
@@ -236,13 +237,13 @@ La estrategia de protección siempre debe adaptarse al estado en el que se encue
     
 - **Datos en tránsito:** Información que viaja por la red y que debe canalizarse a través de túneles seguros utilizando protocolos como SSH, TLS o configuraciones de VPN.
 
-## 4.3. Listas de Control de Acceso (ACL)
+### 4.3. Listas de Control de Acceso (ACL)
 
 El sistema de permisos tradicional de muchos sistemas operativos (que divide el acceso entre propietario, grupo y el resto de usuarios) puede resultar rígido en entornos corporativos complejos. Las Listas de Control de Acceso (ACL) resuelven esta limitación permitiendo asignar privilegios granulares y específicos a diferentes usuarios sobre un mismo recurso.
 
 **Aplicación práctica en sistemas Linux:** Si se desea otorgar permisos de lectura y escritura al usuario "ana" sobre el directorio `/proyecto` sin alterar los permisos del propietario original, se emplea el comando `setfacl -m u:ana:rw /proyecto`. Para auditar las reglas aplicadas sobre ese recurso, se utiliza el comando de lectura `getfacl /proyecto`.
 
-## 4.4. Políticas de contraseñas y métodos de autenticación
+### 4.4. Políticas de contraseñas y métodos de autenticación
 
 Las contraseñas representan el mecanismo de autenticación más extendido para restringir el acceso a los sistemas informáticos. Su eficacia se basa en verificar la identidad del usuario mediante una información secreta que solo él debería conocer. Sin embargo, si las claves son demasiado breves, previsibles o se reutilizan en múltiples plataformas, el nivel de riesgo aumenta de forma drástica.
 
@@ -260,9 +261,10 @@ Entre los parámetros que suele definir una política corporativa destacan:
     
 - Restricción de intentos fallidos para mitigar ataques de fuerza bruta.
 
-> [!NOTE] **Aclaración sobre tendencias actuales:** Aunque tradicionalmente se exigía renovar las contraseñas cada cierto tiempo (por ejemplo, cada 90 días), las directrices de seguridad modernas priorizan la creación de claves largas y únicas, y desaconsejan forzar su cambio periódico a menos que exista una sospecha real de que han sido comprometidas.
+> [!WARNING] Aclaración sobre tendencias actuales: 
+> Aunque tradicionalmente se exigía renovar las contraseñas cada cierto tiempo (por ejemplo, cada 90 días), las directrices de seguridad modernas priorizan la creación de claves largas y únicas, y desaconsejan forzar su cambio periódico a menos que exista una sospecha real de que han sido comprometidas.
 
-### Gestión de contraseñas en entornos Linux
+**Gestión de contraseñas en entornos Linux**
 
 Por motivos de seguridad, los sistemas Linux nunca almacenan las contraseñas en texto claro. En su lugar, el sistema guarda un "hash" derivado de la clave. Cuando el usuario intenta iniciar sesión, el sistema calcula el hash de la palabra introducida y lo compara con el almacenado, permitiendo validar la identidad sin necesidad de conocer la contraseña original.
 
@@ -276,13 +278,13 @@ Para administrar el ciclo de vida de las contraseñas de cuentas ya existentes, 
 
 Por otro lado, los valores predeterminados que se aplicarán a las **nuevas** cuentas creadas en el sistema se definen en el archivo `/etc/login.defs`, mediante variables como `PASS_MAX_DAYS`, `PASS_MIN_DAYS` y `PASS_WARN_AGE`.
 
-### Arquitectura PAM y calidad de las contraseñas
+**Arquitectura PAM y calidad de las contraseñas**
 
 En Linux, la validación de contraseñas se gestiona mediante una arquitectura modular denominada **PAM (Pluggable Authentication Modules)**. Su gran ventaja es que centraliza la lógica de autenticación, permitiendo que servicios como el inicio de sesión local (`login`), la elevación de privilegios (`sudo`) o el acceso remoto (`ssh`) apliquen las mismas reglas de seguridad sin tener que programarlas de forma individual.
 
 Para auditar y garantizar la fortaleza de las contraseñas antes de que el sistema las acepte, se utiliza el módulo `pam_pwquality`. Su archivo de configuración, ubicado en `/etc/security/pwquality.conf`, permite imponer restricciones matemáticas, como una longitud mínima (`minlen = 12`) o la exigencia de mezclar distintos tipos de caracteres (`minclass = 3`).
 
-### Autenticación Multifactor (MFA)
+**Autenticación Multifactor (MFA)**
 
 Para robustecer el acceso, el modelo MFA combina diferentes dimensiones de autenticación:
 
@@ -292,7 +294,7 @@ Para robustecer el acceso, el modelo MFA combina diferentes dimensiones de auten
     
 3. **Algo que el usuario es:** Un rasgo físico validado mediante biometría.
 
-## 4.5. Sistemas de identificación biométrica
+### 4.5. Sistemas de identificación biométrica
 
 La biometría autentica a los individuos basándose en características físicas o de comportamiento únicas, como la huella dactilar, el reconocimiento facial o el escáner de iris.
 
@@ -303,11 +305,11 @@ La biometría autentica a los individuos basándose en características físicas
 
 En el mercado actual, tecnologías como Windows Hello o Apple Touch ID han estandarizado este tipo de accesos en entornos corporativos y personales.
 
-## 4.6. Políticas de almacenamiento
+### 4.6. Políticas de almacenamiento
 
 Diseñar un modelo de almacenamiento seguro implica tomar decisiones que van mucho más allá de seleccionar el modelo de disco duro. Una política integral debe documentar dónde se aloja la información confidencial, qué usuarios tienen permisos de acceso, qué mecanismos de cifrado se aplican, cómo se estructuran las redundancias técnicas y cuáles son los procedimientos exactos de restauración en caso de desastre.
 
-## 4.7. Respaldo de información: Copias e imágenes
+### 4.7. Respaldo de información: Copias e imágenes
 
 Las copias de seguridad (_backups_) son el último salvavidas frente a ataques de _ransomware_, borrados accidentales o catástrofes físicas. Existen tres metodologías principales para realizarlas:
 
@@ -321,7 +323,7 @@ En sistemas Linux, las tareas de respaldo se suelen automatizar mediante cron y 
 
 Por otro lado, cuando se necesita asegurar el sistema operativo al completo (incluyendo particiones, configuraciones y aplicaciones), se generan **imágenes de respaldo** con herramientas como Clonezilla. Esto permite revivir un servidor inoperativo en cuestión de minutos sin tener que reinstalar el software desde cero.
 
-## 4.8. Tolerancia a fallos: Sistemas RAID
+### 4.8. Tolerancia a fallos: Sistemas RAID
 
 Es vital comprender que **un sistema RAID no es una copia de seguridad**. Su función es agrupar varios discos físicos para aumentar el rendimiento o asegurar que la máquina siga operando si un disco se rompe, pero no protege frente a borrados accidentales ni frente a virus, ya que el daño se replicaría instantáneamente en todos los discos del conjunto.
 
@@ -333,7 +335,7 @@ Los niveles más habituales son:
     
 - **RAID 5:** Distribuye los datos y añade información de paridad matemática entre un mínimo de tres discos. Permite sobrevivir a la pérdida de un disco optimizando mejor el espacio que un RAID 1.
 
-## 4.9. Medios físicos de almacenamiento
+### 4.9. Medios físicos de almacenamiento
 
 La elección del soporte físico es una decisión crítica que impacta directamente en la capacidad, la velocidad, el coste, la portabilidad, la vida útil y la seguridad de los datos. No existe una solución única que sea idónea para todos los escenarios:
 
@@ -355,35 +357,35 @@ La elección del soporte físico es una decisión crítica que impacta directame
 
 En la práctica, un diseño empresarial sólido suele combinar varias de estas tecnologías. Una estrategia habitual consiste en utilizar un sistema NAS interno equipado con discos SSD rápidos en configuración redundante, complementado con un sistema de copias automáticas dirigidas a otra ubicación física o a un entorno en la nube. La redundancia local garantiza la disponibilidad inmediata, mientras que la copia externa es el escudo definitivo frente a desastres que puedan destruir la sede principal de la organización.
 
-## 4.10. Protocolos de recuperación de datos
+### 4.10. Protocolos de recuperación de datos
 
 Cuando la información se daña o se elimina por error, las opciones de recuperación varían según el sistema operativo y el grado de sobrescritura de los sectores del disco. La norma principal es evitar realizar nuevas escrituras en el dispositivo afectado.
 
 En Windows existen utilidades dedicadas como Recuva, mientras que en Linux destacan herramientas como TestDisk (enfocada en recuperar particiones dañadas) y PhotoRec (especializada en recuperar ficheros individuales rastreando firmas de datos, técnica conocida como _carving_).
 
-## 4.11. Auditorías de seguridad
+### 4.11. Auditorías de seguridad
 
 Una auditoría de seguridad consiste en una revisión sistemática y exhaustiva cuyo propósito es identificar configuraciones defectuosas, debilidades técnicas, posibles riesgos y desviaciones respecto a las políticas establecidas por la organización. La simple implementación de controles iniciales (como cortafuegos o permisos) resulta insuficiente si no se verifica de manera periódica que continúan siendo efectivos y que se ajustan a la realidad del entorno. Estas evaluaciones pueden llevarse a cabo de forma manual, mediante software automatizado, o combinando ambos enfoques.
 
-### Auditoría en entornos Windows
+**Auditoría en entornos Windows**
 
 En los sistemas operativos de Microsoft, la herramienta central para la monitorización nativa es el **Visor de eventos**. Esta utilidad recopila y clasifica de forma estructurada los registros (_logs_) correspondientes al propio sistema, a las aplicaciones en ejecución y, de forma crítica, a la seguridad.
 
 El análisis detallado de estos registros permite a los administradores investigar intentos de inicio de sesión (tanto exitosos como fallidos), alteraciones en los privilegios de los usuarios, errores críticos y cualquier otra actividad sospechosa. Para garantizar una auditoría eficaz y adaptada a las amenazas modernas, es imperativo utilizar y dominar las herramientas de seguridad y administración vigentes en las versiones actuales del sistema operativo.
 
-### Auditoría en entornos Linux
+**Auditoría en entornos Linux**
 
 La evaluación de la seguridad en sistemas basados en Linux se apoya frecuentemente en herramientas de análisis profundo. Entre ellas destaca **Lynis**, una utilidad diseñada para auditar el sistema operativo, revisar el software instalado y evaluar las configuraciones activas en busca de posibles vulnerabilidades. Su ejecución mediante el comando `lynis audit system` proporciona un informe detallado con advertencias y recomendaciones de fortificación.
 
 Paralelamente, la suite **OpenSCAP** permite automatizar la comprobación del sistema para verificar si su configuración cumple con políticas o estándares de seguridad concretos y oficiales. Cabe destacar que el resultado de estas herramientas automatizadas sirve como guía, pero no sustituye el análisis y la interpretación final que debe realizar el administrador del sistema.
 
-### Auditoría de red
+**Auditoría de red**
 
 Las deficiencias en la configuración de la infraestructura de red pueden dejar expuestos servicios internos que no deberían ser accesibles desde el exterior. Para auditar el estado del perímetro y de las redes internas sobre las que se tiene autorización, se emplean herramientas de reconocimiento como **Nmap**. Esta utilidad permite identificar los equipos conectados (_hosts_), escanear los puertos activos y descubrir qué servicios se están ejecutando en ellos.
 
 A modo de ejemplo, la ejecución del comando `nmap -sS -p 1-65535 192.168.1.1` instruye a la herramienta para realizar un sondeo rápido (tipo SYN) abarcando la totalidad de los puertos posibles de esa dirección IP. Una vez descubierto el mapa de red, para dar un paso más y detectar vulnerabilidades previamente documentadas en esos servicios, se recurre a escáneres especializados como **OpenVAS / Greenbone**.
 
-# 5. Protección perimetral
+## 5. Protección perimetral
 
 La conexión de cualquier infraestructura informática a internet u otras redes públicas exige el diseño de una estrategia de seguridad perimetral. El propósito de este perímetro es establecer fronteras claras entre áreas que poseen diferentes niveles de confianza, regulando de forma estricta el flujo de información que transita entre ellas.
 
@@ -403,15 +405,15 @@ Es fundamental interiorizar el concepto de "defensa en profundidad": la segurida
     
 - **Gestión de incidentes:** Mantenimiento de registros de actividad (_logs_) centralizados y diseño de procedimientos claros de actuación frente a posibles brechas de seguridad.
 
-# 6. Introducción a la informática forense digital
+## 6. Introducción a la informática forense digital
 
 El análisis forense digital es la disciplina encargada de investigar infraestructuras, dispositivos móviles y medios de almacenamiento con el fin de recolectar, proteger y examinar pruebas vinculadas a un incidente de seguridad o a un delito informático. Su propósito es triple: reconstruir la secuencia exacta de los hechos, determinar las técnicas utilizadas durante el incidente y garantizar que las pruebas obtenidas posean una validez técnica y jurídica irrefutable.
 
-## 6.1. Objetivo y cadena de custodia
+### 6.1. Objetivo y cadena de custodia
 
 La obtención de pruebas digitales exige un rigor metodológico absoluto, ya que cualquier alteración no controlada de una evidencia puede invalidarla. Para prevenir este problema, se establece la denominada **cadena de custodia**. Este procedimiento consiste en documentar de forma ininterrumpida todo el ciclo de vida de la prueba: qué especialista la ha extraído, quién la ha manipulado, en qué momento, dónde ha permanecido almacenada y qué operaciones técnicas precisas se han aplicado sobre ella.
 
-## 6.2. Fases de adquisición y análisis de evidencias
+### 6.2. Fases de adquisición y análisis de evidencias
 
 El protocolo estándar de actuación forense se divide en cuatro grandes etapas consecutivas:
 
@@ -423,11 +425,11 @@ El protocolo estándar de actuación forense se divide en cuatro grandes etapas 
     
 4. **Ejecución del análisis:** Por norma general, la investigación nunca se realiza sobre el dispositivo original. Todo el trabajo forense (búsqueda de elementos eliminados, extracción de metadatos, auditoría de actividad de usuarios y revisión de conexiones) se lleva a cabo exclusivamente sobre las copias de trabajo generadas.
 
-# 7. Herramientas aplicadas al análisis forense
+## 7. Herramientas aplicadas al análisis forense
 
 La recolección y evaluación de evidencias digitales requiere el uso de utilidades especializadas, las cuales varían según el entorno de trabajo afectado:
 
-## 7.1. Entornos Windows
+### 7.1. Entornos Windows
 
 - **FTK Imager:** Software de referencia utilizado para la adquisición de imágenes forenses y la previsualización del contenido de distintos soportes.
     
@@ -436,7 +438,7 @@ La recolección y evaluación de evidencias digitales requiere el uso de utilida
 - **Volatility:** Entorno de trabajo (_framework_) especializado en el análisis de volcados de memoria RAM, indispensable para extraer información sobre procesos en ejecución y conexiones de red en el momento del incidente.
     
 
-## 7.2. Entornos Linux
+### 7.2. Entornos Linux
 
 - **The Sleuth Kit (TSK):** Una potente colección de herramientas en línea de comandos destinadas a investigar estructuras de sistemas de archivos y recuperar evidencias.
     
